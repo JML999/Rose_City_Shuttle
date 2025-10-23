@@ -1,6 +1,7 @@
 [build]
+  base = "Desktop/tville_transit/thomasville-shuttle"
   command = "npm run build"
-  publish = ".next"
+  publish = "Desktop/tville_transit/thomasville-shuttle/.next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
