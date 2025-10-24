@@ -17,11 +17,10 @@ function PaymentForm() {
     setLoading(true);
     setError(null);
 
-    // Ensure return_url is always a string for both client and server builds
     const returnUrl =
       typeof window !== "undefined"
-        ? `${window.location.origin}/book`
-        : `${process.env.NEXT_PUBLIC_SITE_URL || "https://rosecityexpress.netlify.app"}/book`;
+        ? `${window.location.origin}/payment-success`
+        : `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://rosecityshuttle.netlify.app"}/payment-success`;
 
     const { error: submitError } = await stripe.confirmPayment({
       elements,
@@ -41,7 +40,9 @@ function PaymentForm() {
       <button
         type="submit"
         disabled={!stripe || loading}
-        className={`w-full py-2 rounded-md font-medium ${!stripe || loading ? "bg-gray-300 text-gray-500" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+        className={`w-full py-2 rounded-md font-medium ${
+          !stripe || loading ? "bg-gray-300 text-gray-500" : "bg-blue-600 text-white hover:bg-blue-700"
+        }`}
       >
         {loading ? "Processing..." : "Finalize Payment"}
       </button>
@@ -53,16 +54,23 @@ export default function PayPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   useEffect(() => {
-    // Retrieve draft booking from sessionStorage
     const draftStr = sessionStorage.getItem("booking_draft");
     if (!draftStr) return;
+
     const draft = JSON.parse(draftStr);
     const amount = Math.round((draft.totalPrice || 0) * 100);
 
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount, currency: "usd", metadata: { tripId: draft.tripId, date: draft.date } }),
+      body: JSON.stringify({
+        amount,
+        currency: "usd",
+        metadata: {
+          tripId: draft.tripId,
+          date: draft.date,
+        },
+      }),
     })
       .then((r) => r.json())
       .then((data) => setClientSecret(data.clientSecret))
@@ -71,7 +79,9 @@ export default function PayPage() {
 
   if (!clientSecret) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-600">Preparing payment…</div>
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        Preparing payment…
+      </div>
     );
   }
 
@@ -81,5 +91,3 @@ export default function PayPage() {
     </Elements>
   );
 }
-
-
