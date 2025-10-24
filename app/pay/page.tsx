@@ -17,10 +17,16 @@ function PaymentForm() {
     setLoading(true);
     setError(null);
 
+    // Ensure return_url is always a string for both client and server builds
+    const returnUrl =
+      typeof window !== "undefined"
+        ? `${window.location.origin}/book`
+        : `${process.env.NEXT_PUBLIC_SITE_URL || "https://rosecityexpress.netlify.app"}/book`;
+
     const { error: submitError } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: typeof window !== "undefined" ? `${window.location.origin}/book` : undefined,
+        return_url: returnUrl,
       },
     });
 
