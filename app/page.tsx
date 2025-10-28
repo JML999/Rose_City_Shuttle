@@ -55,8 +55,11 @@ export default function Home() {
 
   const handleBookNow = () => {
     if (selectedTrip) {
+      // Find the trip object
+      const trip = availableTrips.find(t => t.id === selectedTrip);
+      const tripDisplay = trip ? `${trip.departureTimeDisplay} - $${trip.price}` : 'selected trip';
       // Show alert that booking is being set up
-      alert(`Booking feature coming soon! Selected trip: ${selectedTrip.departureTimeDisplay} on ${selectedDate}. This site is currently being configured.`);
+      alert(`Booking feature coming soon! Selected: ${tripDisplay} on ${selectedDate}. This site is currently being configured.`);
     }
   };
 
