@@ -55,8 +55,8 @@ export default function Home() {
 
   const handleBookNow = () => {
     if (selectedTrip) {
-      // Navigate to booking form with selected trip
-      window.location.href = `/book?trip=${selectedTrip}&date=${selectedDate}`;
+      // Show alert that booking is being set up
+      alert(`Booking feature coming soon! Selected trip: ${selectedTrip.departureTimeDisplay} on ${selectedDate}. This site is currently being configured.`);
     }
   };
 
