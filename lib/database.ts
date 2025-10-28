@@ -1,4 +1,4 @@
-import { Timestamp } from 'firebase/firestore';
+import { Timestamp, FieldValue } from 'firebase/firestore';
 
 // Database structure for Firestore collections
 
@@ -33,8 +33,8 @@ export interface Booking {
   
   // System fields
   status: 'pending' | 'confirmed' | 'cancelled';
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: FieldValue | Timestamp;
+  updatedAt: FieldValue | Timestamp;
   confirmationCode: string; // Unique booking reference
 }
 
@@ -58,8 +58,8 @@ export interface DailyAvailability {
   };
   
   // System fields
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: FieldValue | Timestamp;
+  updatedAt: FieldValue | Timestamp;
 }
 
 export interface TripSchedule {
@@ -68,8 +68,8 @@ export interface TripSchedule {
   date: string; // Format: "YYYY-MM-DD"
   isAvailable: boolean;
   bookingId?: string; // If booked, reference the booking
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: FieldValue | Timestamp;
+  updatedAt: FieldValue | Timestamp;
 }
 
 // Luggage options for the booking form
