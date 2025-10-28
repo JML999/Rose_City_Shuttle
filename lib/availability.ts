@@ -50,7 +50,7 @@ export async function getTripsWithAvailability(
 ): Promise<(Trip & { isAvailable: boolean; reason?: string })[]> {
   try {
     // Get all trips for the direction
-    const trips = require('./trips').getTripsByDirection(direction);
+    const trips: Trip[] = require('./trips').getTripsByDirection(direction);
     
     // Check availability for each trip
     const availabilityChecks = await checkMultipleTripAvailability(
@@ -78,7 +78,7 @@ export function getMockTripsWithAvailability(
   direction: 'to-airport' | 'from-airport', 
   date: string
 ): (Trip & { isAvailable: boolean; reason?: string })[] {
-  const trips = require('./trips').getTripsByDirection(direction);
+  const trips: Trip[] = require('./trips').getTripsByDirection(direction);
   
   // For development, randomly mark some trips as unavailable
   // In production, this would check actual Firestore data
