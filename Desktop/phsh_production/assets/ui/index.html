@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{CDN_ASSETS_URL}}/ui/styles.css">
+    <title>Game UI</title>
+    <script>
+        console.log('Starting UI initialization...');
+        
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                console.log('Loading script:', src);
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => {
+                    console.log('Script loaded:', src);
+                    resolve();
+                };
+                script.onerror = (error) => {
+                    console.error('Script load error:', src, error);
+                    reject(error);
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        async function initializeUI() {
+            console.log('Starting UI initialization...');
+            
+            // Add mobile class immediately if on mobile, before any panels initialize
+            // This ensures all panels' mobile CSS selectors (body.mobile) work correctly
+            if (hytopia.isMobile && !document.body.classList.contains('mobile')) {
+                document.body.classList.add('mobile');
+            }
+            
+            await Promise.all([
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/InventoryPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/TackleBoxPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/GameUpdatesPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ProgressPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/CastingPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/JigPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ReelPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/MerchantPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/RodShopPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/BoatShopPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/TutorialPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/BreathPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/DeathPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/CraftingPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ToolmasterCraftingPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/BaitMasterCraftingPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ShrimpShopPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/RuneShopPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/SaltBaitCraftingPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/LeaderboardPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/QuickTutorialPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/AchievementPopupPanel.js'),
+                // loadScript('{{CDN_ASSETS_URL}}/ui/panels/QuestTrackerPanel.js'), // Temporarily disabled for new Player Progress Panel
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/PlayerProgressPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/NpcDialoguePanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/PlayerOptionsPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/MobileNpcOptionsPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/MobileControlsPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/BoatControlsPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/FishWeighingPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/PrizeDisplayPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/FitzNotePanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ExperimentalRodShopPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ExperimentalWeighingPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/StellarAlignmentPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/TileMemoryPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ScrollContentPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/ZephyrRodRewardPanel.js'),
+                loadScript('{{CDN_ASSETS_URL}}/ui/panels/RelicShardRewardPanel.js')
+            ]);
+            
+            window.GameUpdatesPanel.initialize('updates-container');
+            window.ProgressPanel.initialize('progress-container');
+            window.InventoryPanel.initialize('inventory-container');
+            window.TackleBoxPanel.initialize('tacklebox-container');
+            window.CastingPanel.initialize('casting-container');
+            window.JigPanel.initialize('jig-container');
+            window.ReelPanel.initialize('reel-container');
+            window.MerchantPanel.initialize('merchant-container');
+            window.RodShopPanel.initialize('shop-container');
+            window.BoatShopPanel.initialize('boat-shop-container');
+            window.TutorialPanel.initialize('tutorial-container');
+            window.BreathPanel.initialize('breath-container');
+            window.DeathPanel.initialize();
+            window.CraftingPanel.initialize('crafting-container');
+            window.ToolmasterCraftingPanel.initialize('toolmaster-crafting-container');
+            window.BaitMasterCraftingPanel.initialize('baitmaster-crafting-container');
+            window.ShrimpShopPanel.initialize('shrimp-shop-container');
+            window.RuneShopPanel.initialize('rune-shop-container');
+            window.SaltBaitCraftingPanel.initialize('salt-bait-crafting-container');
+            window.LeaderboardPanel.initialize('leaderboard-container');
+            window.QuickTutorialPanel.initialize('quick-tutorial-container');
+            window.AchievementPopupPanel.initialize('achievement-container');
+            // window.QuestTrackerPanel.initialize('quest-tracker-container'); // Temporarily disabled
+            window.PlayerProgressPanel.initialize('player-progress-container');
+            window.NpcDialoguePanel.initialize();
+            window.PlayerOptionsPanel.initialize();
+            window.MobileNpcOptionsPanel.initialize();
+            window.MobileControlsPanel.initialize('mobile-controls-container');
+            if (window.BoatControlsPanel) {
+                window.BoatControlsPanel.initialize('boat-controls-container');
+            }
+            window.FishWeighingPanel.initialize('fish-weighing-container');
+            window.PrizeDisplayPanel.initialize('prize-display-container');
+            window.FitzNotePanel.initialize('fitz-note-container');
+            window.ExperimentalRodShopPanel.initialize('experimental-rod-shop-container');
+            window.ScrollContentPanel.initialize('scroll-content-container');
+            window.ZephyrRodRewardPanel.initialize('zephyr-rod-reward-container');
+            window.RelicShardRewardPanel.initialize('relic-shard-reward-container');
+
+            console.log('UI initialization complete');
+            
+            // Setup tutorial arrow handlers
+            setupTutorialArrows();
+            
+            hytopia.sendData({
+                type: 'welcomeReady'
+            });
+            if (hytopia.isMobile) {
+                hytopia.sendData({
+                    type: 'welcomeMobile'
+                });
+            }
+        }
+
+        function setupTutorialArrows() {
+            let currentArrowConnection = null;
+            
+            hytopia.onData((data) => {
+                if (data.type === 'showTutorialArrow') {
+                    console.log('[TutorialArrows] Received showTutorialArrow message:', data);
+                    
+                    // Hide existing arrow if any
+                    if (currentArrowConnection !== null) {
+                        try {
+                            hytopia.disconnectArrow(currentArrowConnection);
+                        } catch (e) {
+                            console.warn('[TutorialArrows] Error disconnecting arrow:', e);
+                        }
+                        currentArrowConnection = null;
+                    }
+                    
+                    // Check if we have entity ID directly from server (preferred method)
+                    if (data.targetEntityId !== null && data.targetEntityId !== undefined && typeof data.targetEntityId === 'number') {
+                        // Get player entity ID
+                        const playerEntityId = hytopia.getPlayerEntityId();
+                        console.log('[TutorialArrows] Player entity ID:', playerEntityId);
+                        if (!playerEntityId) {
+                            console.warn('[TutorialArrows] Could not get player entity ID, falling back to name lookup');
+                            // Fall through to name-based lookup
+                        } else {
+                            try {
+                                // Ensure both IDs are valid numbers
+                                const sourceId = Number(playerEntityId);
+                                const targetId = Number(data.targetEntityId);
+                                
+                                if (isNaN(sourceId) || isNaN(targetId)) {
+                                    throw new Error(`Invalid entity IDs: source=${sourceId}, target=${targetId}`);
+                                }
+                                
+                                // According to SDK example: connectArrow(sourceEntityId, targetEntityId, options)
+                                // NOT connectArrow({ sourceEntityId, targetEntityId, ... })
+                                currentArrowConnection = hytopia.connectArrow(
+                                    sourceId,
+                                    targetId,
+                                    {
+                                        color: { r: 255, g: 255, b: 255 }
+                                    }
+                                );
+                                console.log(`[TutorialArrows] Arrow connected using server-provided target ID (source: ${sourceId}, target: ${targetId})`);
+                                return;
+                            } catch (e) {
+                                console.error('[TutorialArrows] Error connecting arrow with server ID:', e);
+                                // Fall through to name-based lookup
+                            }
+                        }
+                    } else {
+                        console.log('[TutorialArrows] No valid targetEntityId provided, using name lookup');
+                    }
+                    
+                    // Fallback: Get player entity ID
+                    const playerEntityId = hytopia.getPlayerEntityId();
+                    console.log('[TutorialArrows] Player entity ID:', playerEntityId);
+                    if (!playerEntityId) {
+                        console.warn('[TutorialArrows] Could not get player entity ID');
+                        return;
+                    }
+                    
+                    // Get target entity ID by name
+                    const targetEntityName = data.targetEntityName;
+                    if (!targetEntityName) {
+                        console.error('[TutorialArrows] No targetEntityName provided and no valid targetEntityId');
+                        return;
+                    }
+                    
+                    console.log('[TutorialArrows] Looking for entity with name:', targetEntityName);
+                    
+                    // Try to get entity ID - may need to wait a bit for entities to be loaded
+                    setTimeout(() => {
+                        const targetEntityId = hytopia.getEntityIdByName(targetEntityName);
+                        console.log('[TutorialArrows] Target entity ID:', targetEntityId);
+                        
+                        if (!targetEntityId) {
+                            console.warn(`[TutorialArrows] Could not find entity with name: ${targetEntityName}. Trying alternative names...`);
+                            
+                            // Try alternative name formats
+                            const alternatives = [];
+                            if (targetEntityName && typeof targetEntityName === 'string') {
+                                alternatives.push(
+                                    targetEntityName.replace('NPC - ', '').split(' (')[0], // Just the id part
+                                    targetEntityName.split(' (')[1]?.replace(')', '') || '' // Just the definitionId part
+                                );
+                            }
+                            
+                            let foundId = null;
+                            for (const altName of alternatives) {
+                                if (altName && altName.trim() !== '') {
+                                    const altId = hytopia.getEntityIdByName(altName);
+                                    if (altId) {
+                                        foundId = altId;
+                                        console.log(`[TutorialArrows] Found entity using alternative name: ${altName}`);
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            if (!foundId) {
+                                console.error(`[TutorialArrows] Could not find entity with any name variation. Available entities may not be loaded yet. Retrying in 2 seconds...`);
+                                // Retry once more after a longer delay
+                                setTimeout(() => {
+                                    const retryId = hytopia.getEntityIdByName(targetEntityName);
+                                    if (retryId) {
+                                        try {
+                                            currentArrowConnection = hytopia.connectArrow(
+                                                playerEntityId,
+                                                retryId,
+                                                {
+                                                    color: { r: 255, g: 255, b: 255 }
+                                                }
+                                            );
+                                            console.log(`[TutorialArrows] Arrow connected on retry`);
+                                        } catch (e) {
+                                            console.error('[TutorialArrows] Error connecting arrow on retry:', e);
+                                        }
+                                    } else {
+                                        console.error(`[TutorialArrows] Still could not find entity after retry`);
+                                    }
+                                }, 2000);
+                                return;
+                            }
+                            
+                            // Use found ID
+                            try {
+                                currentArrowConnection = hytopia.connectArrow(
+                                    playerEntityId,
+                                    foundId,
+                                    {
+                                        color: { r: 255, g: 255, b: 255 }
+                                    }
+                                );
+                                console.log(`[TutorialArrows] Arrow connected from player to ${targetEntityName} (using alternative name)`);
+                            } catch (e) {
+                                console.error('[TutorialArrows] Error connecting arrow:', e);
+                            }
+                            return;
+                        }
+                        
+                        // Connect arrow from player to target
+                        try {
+                            // Ensure both IDs are valid numbers
+                            const sourceId = Number(playerEntityId);
+                            const targetId = Number(targetEntityId);
+                            
+                            if (isNaN(sourceId) || isNaN(targetId)) {
+                                throw new Error(`Invalid entity IDs: source=${sourceId}, target=${targetId}`);
+                            }
+                            
+                            // According to SDK example: connectArrow(sourceEntityId, targetEntityId, options)
+                            // NOT connectArrow({ sourceEntityId, targetEntityId, ... })
+                            currentArrowConnection = hytopia.connectArrow(
+                                sourceId,
+                                targetId,
+                                {
+                                    color: { r: 255, g: 255, b: 255 }
+                                }
+                            );
+                            console.log(`[TutorialArrows] Arrow connected from player to ${targetEntityName}`);
+                        } catch (e) {
+                            console.error('[TutorialArrows] Error connecting arrow:', e);
+                        }
+                    }, 500); // Wait 500ms for entities to be fully loaded
+                } else if (data.type === 'hideTutorialArrow') {
+                    console.log('[TutorialArrows] Received hideTutorialArrow message');
+                    // Hide existing arrow
+                    if (currentArrowConnection !== null) {
+                        try {
+                            hytopia.disconnectArrow(currentArrowConnection);
+                            currentArrowConnection = null;
+                            console.log('[TutorialArrows] Arrow disconnected');
+                        } catch (e) {
+                            console.warn('[TutorialArrows] Error disconnecting arrow:', e);
+                        }
+                    }
+                }
+            });
+        }
+
+        initializeUI();
+    </script>
+</head>
+<body>
+    <!-- Container for game updates in top right -->
+    <div id="updates-container" style="position: fixed; top: 20px; right: 20px; min-width: 200px; min-height: 100px; z-index: 1000;"></div>
+    
+    <!-- Container for breath meter -->
+    <div id="breath-container"></div>
+    
+    <!-- Container for progress UI in bottom right -->
+    <div id="progress-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+    <div id="inventory-container"></div>
+    <div id="tacklebox-container"></div>
+    
+    <div id="casting-container"></div>
+    <div id="jig-container"></div>
+    <div id="reel-container"></div>
+    <div id="merchant-container"></div>
+    <div id="shop-container"></div>
+    <div id="boat-shop-container"></div>
+    <div id="tutorial-container"></div>
+    <div id="crafting-container"></div>
+    <div id="toolmaster-crafting-container"></div>
+    <div id="baitmaster-crafting-container"></div>
+    <div id="shrimp-shop-container"></div>
+    <div id="rune-shop-container"></div>
+    <div id="salt-bait-crafting-container"></div>
+    <div id="leaderboard-container" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2000;"></div>
+    <div id="quick-tutorial-container" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2000;"></div>
+    <div id="achievement-container"></div>
+    <!-- <div id="quest-tracker-container"></div> --> <!-- Temporarily disabled -->
+    <div id="player-progress-container"></div>
+    <div id="fish-weighing-container"></div>
+    <div id="prize-display-container"></div>
+    <div id="fitz-note-container"></div>
+    <div id="experimental-rod-shop-container"></div>
+    <div id="scroll-content-container"></div>
+    <div id="zephyr-rod-reward-container"></div>
+    <div id="relic-shard-reward-container"></div>
+
+    <!-- Mobile Controls Container -->
+    <div id="mobile-controls-container"></div>
+    
+    <!-- Boat Controls Container -->
+    <div id="boat-controls-container"></div>
+
+    <!-- --- REMOVE flex-direction and gap from inline style --- -->
+    <div id="mobile-npc-options-container" style="position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 1500; display: none;">
+        <!-- Mobile buttons will be added here by MobileNpcOptionsPanel.js -->
+    </div>
+    <!-- ------------------------------------------------------- -->
+
+    <!-- EXPERIMENTAL WEIGHING SYSTEM - Scene UI Templates -->
+    <script>
+        // Register Scene UI template for central weighing scale
+        hytopia.registerSceneUITemplate('experimental-weighing-scale', (id, onState) => {
+            const template = document.getElementById('experimental-weighing-scale-template');
+            const clone = template.content.cloneNode(true);
+            
+            const fishNameEl = clone.querySelector('.fish-name');
+            const weightValueEl = clone.querySelector('.weight-value');
+            const weightUnitEl = clone.querySelector('.weight-unit');
+            const recordIndicatorEl = clone.querySelector('.record-indicator');
+            const recordWeightEl = clone.querySelector('.record-weight');
+            
+            onState(state => {
+                if (fishNameEl) fishNameEl.textContent = state.fishName || '';
+                if (weightValueEl) {
+                    weightValueEl.textContent = state.currentWeight?.toFixed(2) || '0.00';
+                    // Add oscillation animation class when animating
+                    if (state.isAnimating) {
+                        weightValueEl.classList.add('oscillating');
+                    } else {
+                        weightValueEl.classList.remove('oscillating');
+                    }
+                }
+                if (recordIndicatorEl && recordWeightEl) {
+                    // Show record indicator with current record weight
+                    const recordWeight = state.currentRecordWeight || 0;
+                    if (recordWeight > 0) {
+                        recordIndicatorEl.style.display = 'block';
+                        recordWeightEl.textContent = `${recordWeight.toFixed(2)} LBS`;
+                    } else {
+                        recordIndicatorEl.style.display = 'none';
+                    }
+                }
+            });
+            
+            return clone;
+        });
+    </script>
+
+    <template id="experimental-weighing-scale-template">
+        <div class="experimental-weighing-scale">
+            <div class="scale-fish-name fish-name"></div>
+            <div class="scale-weight-display">
+                <span class="weight-value">0.00</span>
+                <span class="weight-unit">LBS</span>
+            </div>
+            <div class="scale-record-indicator record-indicator" style="display: none;">
+                <span class="record-label">RECORD:</span>
+                <span class="record-weight">0.00 LBS</span>
+            </div>
+        </div>
+    </template>
+
+    <style>
+        .experimental-weighing-scale {
+            background: linear-gradient(to bottom, rgba(20, 20, 30, 0.95), rgba(10, 10, 20, 0.95));
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            border-radius: 16px;
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4),
+                        inset 0 0 30px rgba(255, 255, 255, 0.1);
+            min-width: 200px;
+            backdrop-filter: blur(8px);
+        }
+
+        .scale-fish-name {
+            color: #FFD700;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .scale-weight-display {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .weight-value {
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+        }
+
+        .weight-value.oscillating {
+            animation: weightOscillate 0.1s ease-in-out infinite;
+        }
+
+        @keyframes weightOscillate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .weight-unit {
+            color: #b0b0b0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .scale-record-indicator {
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+            border: 2px solid rgba(255, 215, 0, 0.8);
+            border-radius: 8px;
+            animation: recordPulse 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .record-label {
+            color: #FFD700;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .record-weight {
+            color: #FFD700;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes recordPulse {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+                transform: scale(1.05);
+            }
+        }
+    </style>
+
+</body>
+</html>
