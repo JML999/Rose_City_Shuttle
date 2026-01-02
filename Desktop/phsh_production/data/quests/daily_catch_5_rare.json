@@ -1,0 +1,21 @@
+{
+  "id": "daily_catch_5_rare",
+  "title": "Rare Hunter",
+  "description": "Catch 5 Rare fish.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "catchRarity",
+      "targetRarity": "rare",
+      "count": 5
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

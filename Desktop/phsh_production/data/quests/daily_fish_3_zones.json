@@ -1,0 +1,21 @@
+{
+  "id": "daily_fish_3_zones",
+  "title": "Island Hopper",
+  "description": "Fish at 3 different fishing zones.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "fishAtLocations",
+      "targetLocations": 3,
+      "count": 3
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

@@ -1,0 +1,12 @@
+{
+    "id": "brock",
+    "name": "Brock",
+    "modelUri": "models/npcs/brock.gltf",
+    "modelScale": 0.804,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "These pressure plates have been here forever...",
+      "options": []
+    }
+  }
+

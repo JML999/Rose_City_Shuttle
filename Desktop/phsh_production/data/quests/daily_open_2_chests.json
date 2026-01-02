@@ -1,0 +1,20 @@
+{
+  "id": "daily_open_2_chests",
+  "title": "Treasure Seeker",
+  "description": "Open 2 Treasure Chests.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "openChests",
+      "count": 2
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

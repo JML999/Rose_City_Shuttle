@@ -1,0 +1,20 @@
+{
+  "id": "daily_open_1_chest",
+  "title": "Treasure Hunter",
+  "description": "Open 1 Treasure Chest.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "openChests",
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

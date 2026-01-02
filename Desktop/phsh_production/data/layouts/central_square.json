@@ -1,0 +1,355 @@
+{
+    "anchorCoordinate": { "x": -46, "y": 26, "z": -15.4 }, 
+    "description": "Central Square Layout",
+    "entities": [
+      {
+        "type": "npc",
+        "id": "fishmonger", 
+        "definitionId": "fishmonger", 
+        "relativePosition": { "x": 0.8, "y": 1, "z": -11.6 },  
+        "facing": { "x": -45, "y": 27, "z": -14 }
+      },
+      {
+        "type": "furniture",          
+        "id": "fish_merchant_sign",     
+        "definitionId": "fish_sign", 
+        "modelUri": "models/decor/fish_sign.gltf", 
+        "relativePosition": { "x": 0.8, "y": 6.75, "z": -12.6 }, 
+        "facing": { "x": -45, "y": 27, "z": -14 },
+        "scale": 4.5                      
+      },
+
+      {
+        "type": "furniture",          
+        "id": "fish_hanging_line",     
+        "definitionId": "fish_hanging_line", 
+        "modelUri": "models/decor/fish_hanging_line.gltf", 
+        "relativePosition": { "x": 4.5, "y": 1.35, "z": -10.6 },
+        "facing": { "x": -46, "y": 26, "z": -15.4 },
+        "scale": 1                     
+      },
+
+      {
+        "type": "furniture",          
+        "id": "fish_hanging_line",     
+        "definitionId": "fish_hanging_line", 
+        "modelUri": "models/decor/fishing_wheelbarrow_octopus.gltf", 
+        "relativePosition": { "x": -2.9, "y": 0.95, "z": -10.6 },
+        "facing": { "x": -46, "y": 26, "z": -15.4 },
+        "scale": 1.25                  
+      },
+
+
+
+      {
+        "type": "furniture",          
+        "id": "fish_barrel_1",     
+        "definitionId": "fish_barrel", 
+        "modelUri": "models/decor/barrel.gltf", 
+        "relativePosition": { "x": -1.8, "y": 0.5, "z": -15.6 }, 
+        "facing": { "x": -45, "y": 27, "z": -14 },
+        "scale": 1.0                      
+      },
+
+
+      {
+        "type": "furniture",          
+        "id": "fish_barrel_2",     
+        "definitionId": "fish_barrel", 
+        "modelUri": "models/decor/barrel.gltf", 
+        "relativePosition": { "x": -1.8, "y": 0.5, "z": -14.6 }, 
+        "facing": { "x": -45, "y": 27, "z": -14 },
+        "scale": 1.0                      
+      },
+
+      {
+        "type": "npc",
+        "id": "roddy", 
+        "definitionId": "roddy", 
+        "relativePosition": { "x": -21, "y": 2, "z": 8.75 },  
+        "facing": { "x": -62, "y": 26.75, "z": -3.5 }
+      },
+
+      {
+        "type": "furniture",
+        "id": "rod_merchant_sign",
+        "modelUri": "models/decor/rod_sign.gltf",
+        "relativePosition": { "x": -22, "y": 8.25, "z": 10.75 },
+        "facing": { "x": 90, "y": 26, "z": 590 },
+        "scale": 3
+      },
+      {
+        "type": "furniture",
+        "id": "forge",
+        "definitionId": "forge",
+        "modelUri": "models/decor/forge.gltf", 
+        "relativePosition": { "x": -24, "y": 2.33, "z": 9.75 }, 
+        "facing": { "x": -89, "y": 26, "z": -6.55 },
+        "scale": 1.75
+      },
+      {
+        "type": "furniture",
+        "id": "anvil",
+        "definitionId": "anvil",
+        "modelUri": "models/decor/anvil.gltf", 
+        "relativePosition": { "x": -21, "y": 1.5, "z": 10.75 }, 
+        "facing": { "x": -49, "y": 26.25, "z": -15.4 },
+        "scale": 1.15
+      },
+      {
+        "type": "furniture",
+        "id": "rod_barrel_1",
+        "definitionId": "rod_barrel",
+        "modelUri": "models/decor/rod_barrel_1.gltf", 
+        "relativePosition": { "x": -22, "y": 2, "z": 12.75 }, 
+        "facing": { "x": -49, "y": 26.25, "z": -15.4 },
+        "scale": 0.85
+      },
+
+
+
+
+
+
+
+      {
+        "type": "npc",
+        "id": "bait_master",
+        "definitionId": "bait_master",
+        "modelUri": "models/npcs/bait_master.gltf",
+        "relativePosition": { "x": -3.6, "y": 4.05, "z": 29.41 },
+        "facing": { "x": -54.19, "y": 29, "z": 14.08 },
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "shrimp_sign_topper",
+        "modelUri": "models/npcs/shrimp_sign.gltf",
+        "relativePosition": { "x": -1.6, "y": 10, "z": 29.41 },
+        "facing": { "x": -48.69, "y": 29.79, "z": 6.44 },
+        "scale": 8.0
+      },
+
+
+
+
+
+
+
+      {
+        "type": "npc",
+        "id": "collector_central", 
+        "definitionId": "collector", 
+        "relativePosition": { "x": 10.5, "y": 2, "z": 12.5 },
+        "facing": { "x":-39, "y": 27, "z": -5.82},
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "prize_wheel",
+        "modelUri": "models/decor/prize_wheel.gltf",
+        "relativePosition": { "x": 12.5, "y": 2.5, "z": 10.97 },
+        "facing": { "x":-37, "y": 27, "z": -4.12},
+        "scale": 1.0
+      },
+
+      {
+        "type": "furniture",          
+        "id": "fish_hanging_line",     
+        "definitionId": "fish_hanging_line", 
+        "modelUri": "models/decor/fish_hanging_line.gltf", 
+        "relativePosition": { "x": 8, "y": 2.5, "z": 13.97 },
+        "facing": { "x": -46, "y": 26, "z": -15.4 },
+        "scale": 1                     
+      },
+
+      
+    
+
+
+
+
+
+      {
+        "type": "furniture",
+        "id": "table_librarian",
+        "modelUri": "models/decor/table_square_wood.gltf",
+        "relativePosition": {
+          "x": -22.55,
+          "y": 5.45,
+          "z": -12.2
+         },
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "chair_librarian_left",
+        "modelUri": "models/decor/chair_wood_worn.gltf",
+        "relativePosition": {
+          "x": -24.0,
+          "y": 5.35,
+          "z": -12.3
+         },
+         "facing": {
+          "x": -68.6,
+          "y": 31.75,
+          "z": -26.15
+        },
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "chair_librarian_right",
+        "modelUri": "models/decor/chair_wood_worn.gltf",
+        "relativePosition": {
+          "x": -21.0,
+          "y": 5.35,
+          "z": -12.3
+         },
+         "facing": {
+          "x": -68.6,
+          "y": 31.75,
+          "z": -29.15
+        },
+        "scale": 1.0
+      },
+
+      {
+        "type": "furniture",
+        "id": "librarian_rug",
+        "modelUri": "models/decor/rug_puffer.gltf",
+        "relativePosition": {
+          "x": -24.0,
+          "y": 5.00,
+          "z": -8
+         },
+
+        "scale": 4.25
+      },
+
+
+      {
+        "type": "furniture",
+        "id": "couch_librarian_new_pos_3",
+        "modelUri": "models/decor/couch.gltf",
+        "relativePosition": {
+          "x": -32.0,
+          "y": 5.75,
+          "z": -5.3
+         },
+         "facing": {
+          "x": -76.24,
+          "y": 31.75,
+          "z": -24.6
+        },
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "couch_librarian_new_pos_4",
+        "modelUri": "models/decor/couch.gltf",
+        "relativePosition": {
+          "x": -29.0,
+          "y": 5.75,
+          "z": -5.3
+         },
+         "facing": {
+          "x": -76.24,
+          "y": 31.75,
+          "z": -24.6
+        },
+        "scale": 1.0
+      },
+
+
+
+      {
+        "type": "furniture",
+        "id": "fisherman_net",
+        "modelUri": "models/decor/fishing_net.gltf",
+        "relativePosition": { "x": 14.50, "y": 7.0, "z": -23.5 },
+        "scale": 1.0
+      },
+
+      {
+        "type": "furniture",
+        "id": "fisherman_barrel_3_fish",
+        "modelUri": "models/decor/fishing_barrel_3_fish.gltf",
+        "relativePosition": { "x": 12.50, "y": 5.75, "z": -20.11},
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "fisherman_cutting_board_no_fish",
+        "modelUri": "models/decor/fishing_cutting_board_no_fish.gltf",
+        "relativePosition": { "x": 11.50, "y": 6.40, "z": -22.0 },
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "fisherman_anchor",
+        "modelUri": "models/decor/anchor.gltf",
+        "relativePosition": {"x": 18.74, "y": 7.33, "z": -27.5},
+        "scale": 1
+      },
+      {
+        "type": "furniture",          
+        "id": "fish_barrel_2",     
+        "definitionId": "fish_barrel", 
+        "modelUri": "models/decor/barrel.gltf", 
+        "relativePosition": { "x": 20.54, "y": 5.5, "z": -24.5 },
+        "scale": 1.0                      
+      },
+      {
+        "type": "furniture",
+        "id": "table_fisherman",
+        "modelUri": "models/decor/table_square_wood.gltf",
+        "relativePosition": { "x": 16.74, "y": 5.5, "z": -20.5 },
+        "scale": 1.0
+      },
+
+      {
+        "type": "furniture",
+        "id": "chair_fisherman_left",
+        "modelUri": "models/decor/chair_wood_worn.gltf",
+        "relativePosition": { "x": 16.74, "y": 5.5, "z": -21.5 },
+         "facing": {
+          "x": -29.6,
+          "y": 31.75,
+          "z": -35.15
+        },
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "chair_fisherman_right",
+        "modelUri": "models/decor/chair_wood_worn.gltf",
+        "relativePosition": { "x": 16.74, "y": 5.5, "z": -19.5 },
+         "facing": {
+          "x": -29.6,
+          "y": 31.75,
+          "z": -35.15
+        },
+        "scale": 1.0
+      },
+
+      {
+        "type": "npc",
+        "id": "greeter",
+        "definitionId": "welcome_npc",
+        "relativePosition": { "x": -43.5, "y": -9.24, "z": 51.87 },
+        "facing": { "x": -91, "y": 17, "z": 36 },
+        "scale": 1.0
+      },
+      {
+        "type": "npc",
+        "id": "mariner_dock",
+        "definitionId": "mariner",
+        "relativePosition": { "x": -51.9, "y": -11.11, "z": -24.4 },
+        "facing": { "x": -98.41, "y": 14.79, "z": -35.67 },
+        "scale": 0.50
+      }
+
+
+    ]
+  }

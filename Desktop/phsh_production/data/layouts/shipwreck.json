@@ -1,0 +1,16 @@
+{
+  "anchorCoordinate": { "x": -305.44, "y": 13.46, "z": -269.83 },
+  "description": "Shipwreck Pressure Plate - Relocated from Tool Master Island",
+  "entities": [
+    {
+      "type": "entity",
+      "id": "pressure_plate_fish",
+      "modelUri": "models/decor/pressure_plate_fish.gltf",
+      "modelScale": 3.0,
+      "definitionId": "pressure_plate_fish",
+      "relativePosition": { "x": 0, "y": -0.20, "z": 0 },
+      "facing": { "x": -305.45, "y": 13.79, "z": -267.58 }
+    }
+  ]
+}
+

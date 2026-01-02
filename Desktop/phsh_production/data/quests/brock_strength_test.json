@@ -1,0 +1,32 @@
+{
+  "id": "brock_strength_test",
+  "title": "A Test of Strength",
+  "description": "Brock needs help activating pressure plates. They require a fish weighing over 200 pounds to move them. Activate them in the correct order: insect, fish, predator.",
+  "giverNpcId": "brock",
+  "turnInNpcId": "brock",
+  "objectives": [
+    {
+      "type": "custom",
+      "id": "activate_plates_sequence",
+      "description": "Activate all three pressure plates in the correct sequence using fish over 200 pounds",
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "relic_shard",
+        "count": 1
+      }
+    ],
+    "experience": 200
+  },
+  "prerequisites": {
+    "completedQuestIds": ["fitz_quest_bait_fishing"]
+  },
+  "autoComplete": true,
+  "repeatable": false
+}
+
+
+

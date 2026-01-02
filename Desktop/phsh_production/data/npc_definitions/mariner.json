@@ -1,0 +1,26 @@
+{
+    "id": "mariner",
+    "name": "Mariner",
+    "modelUri": "models/npcs/merchant.gltf", 
+    "modelScale": 0.9,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "Ahoy there! How can I help you with boats today?",
+      "options": [
+        {
+          "text": "I'd like to buy a boat!",
+          "response": "" 
+        },
+        {
+          "text": "Spawn my boat.",
+          "response": "" 
+        },
+        {
+          "text": "Tell me about boating.",
+          "response": "Boats are essential for reaching distant fishing spots! With a boat, you can explore deep waters, visit remote islands, and discover new fishing areas. You'll find much rarer fish in the deeper waters that only boats can reach!"
+        }
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

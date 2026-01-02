@@ -1,0 +1,34 @@
+{
+  "id": "fitz_quest_getting_started",
+  "title": "Getting Started: Your First Catch",
+  "description": "You looking to start fishing, matey? Bring me three worm bait and I'll help you get started.",
+  "giverNpcId": "greeter",
+  "turnInNpcId": "greeter",
+  "objectives": [
+    {
+      "type": "gatherItem",
+      "itemId": "worm",
+      "count": 3,
+      "description": "Gather 3 worms by digging in dirt blocks around the dock."
+    },
+    {
+      "type": "catchFish",
+      "fishType": "Mackerel",
+      "count": 1,
+      "description": "Catch 1 Mackerel. Tip: Use bait! Try digging in the dirt around the dock for worms."
+    },
+    {
+      "type": "sellFish",
+      "fishType": "Mackerel",
+      "count": 1,
+      "description": "Sell 1 Mackerel at the Fishmonger in town."
+    }
+  ],
+  "rewards": {
+    "coins": 100
+  },
+  "prerequisites": {},
+  "repeatable": false,
+  "autoComplete": false
+}
+

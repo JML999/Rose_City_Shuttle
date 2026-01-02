@@ -1,0 +1,20 @@
+{
+    "id": "digger",
+    "name": "Excavator",
+    "modelUri": "models/npcs/worker.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "Been digging for runic ore and we found an entrance to something undeground. Too dangerous to enter now... come back later.",
+      "options": [
+        {
+          "text": "Where does it lead?",
+          "response": "Too early to tell, but looks like a passage to something. Maybe an old ruin? The air down there feels... wrong."
+        }
+      ]
+    },
+    "idleAnimation": "idle",
+    "interactAnimation": "idle",
+    "interactAnimationLooped": true
+}
+

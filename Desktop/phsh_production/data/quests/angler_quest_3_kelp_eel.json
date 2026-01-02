@@ -1,0 +1,23 @@
+{
+  "id": "angler_quest_2_kelp_eel",
+  "title": "Angler's Task: Kelp Eel",
+  "description": "Finnigan's getting pickier by the day! This time he wants 2 Kelp Eels. Says they're slippery little devils, but I know you can handle it!",
+  "giverNpcId": "angler",
+  "turnInNpcId": "angler",
+  "fishingTip": "Kelp Eels love to hide in shady kelp beds. Look for dark, kelp-covered waters!",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Kelp Eel",
+      "count": 2,
+      "description": "Catch 2 Kelp Eels."
+    }
+  ],
+  "rewards": {
+    "coins": 300
+  },
+  "prerequisites": {
+    "completedQuestIds": ["angler_quest_1_sardines"]
+  },
+  "repeatable": false
+} 

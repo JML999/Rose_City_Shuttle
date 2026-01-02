@@ -1,0 +1,12 @@
+{
+    "id": "drunk_farmer_1",
+    "name": "Barnacle Bill",
+    "modelUri": "models/npcs/drunk_farmer_1.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog", 
+      "prompt": "...",
+      "dialogOptions": [
+      ]
+    }
+  }

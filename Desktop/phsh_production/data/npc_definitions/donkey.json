@@ -1,0 +1,14 @@
+{
+    "id": "donkey",
+    "name": "Donkey",
+    "modelUri": "models/npcs/donkey.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog", 
+      "prompt": "...",
+      "dialogOptions": [
+      ]
+    },
+    "interactAnimation": "idle",
+    "interactAnimationLooped": true
+  }

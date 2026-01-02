@@ -1,0 +1,14 @@
+{
+    "id": "old_angler",
+    "name": "Old Angler", 
+    "modelUri": "models/npcs/old_angler.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "wen tokenomics?",
+      "options": [
+      ]
+    },
+    "interactAnimation": "idle",
+    "interactAnimationLooped": true
+} 

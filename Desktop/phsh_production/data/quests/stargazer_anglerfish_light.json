@@ -1,0 +1,35 @@
+{
+  "id": "stargazer_anglerfish_light",
+  "title": "Light for the Stars",
+  "description": "The Stargazer needs an anglerfish to provide light for decoding the ancient pattern on the star altar. Catch an anglerfish, equip it, and go to the altar.",
+  "giverNpcId": "stargazer",
+  "turnInNpcId": "stargazer",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Anglerfish",
+      "count": 1,
+      "description": "Catch an anglerfish. They can be found in deeper waters, especially at night."
+    },
+    {
+      "type": "custom",
+      "id": "equip_anglerfish",
+      "description": "Equip the anglerfish",
+      "count": 1
+    },
+    {
+      "type": "custom",
+      "id": "interact_altar",
+      "description": "Go to the star altar and interact with it while the anglerfish is equipped",
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "coins": 500,
+    "experience": 200
+  },
+  "prerequisites": {},
+  "repeatable": false
+}
+
+

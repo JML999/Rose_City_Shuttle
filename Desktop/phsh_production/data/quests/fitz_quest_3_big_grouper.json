@@ -1,0 +1,24 @@
+{
+  "id": "fitz_quest_3_big_grouper",
+  "title": "Fitz's Final Job: The Big Pufferfish",
+  "description": "*hic*... This one should really test your abilities. I need a Pufferfish. They don't come too close to shore often, but when they feed around the old dock. Try casting as far off shore as possible. Think you're up for it?",
+  "giverNpcId": "fitzwilliam",
+  "turnInNpcId": "fitzwilliam",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Puffer Fish",
+      "count": 1,
+      "description": "Catch 1 Pufferfish."
+    }
+  ],
+  "rewards": {
+    "experience": 500
+  },
+  "prerequisites": {
+    "completedQuestIds": ["fitz_quest_2_kelp_eel"]
+  },
+  "repeatable": false
+}
+
+

@@ -1,0 +1,28 @@
+{
+    "id": "ancient_cartographer_fountain",
+    "title": "The Cartographer's Vault: Heart Fragment",
+    "description": "The Explorer has decoded the first clue to the legendary cartographer's treasure. Fish the main island's freshwater sources near ancient stone structures to recover the Heart map fragment. Use your Ancient Magnet to locate this piece of the treasure map.",
+    "giverNpcId": "explorer",
+    "turnInNpcId": "explorer",
+    "fishingTip": "Fish freshwater sources on the main island near ancient stone structures. Use the Ancient Magnet as bait to detect the Heart fragment.",
+    "objectives": [
+        {
+            "type": "catchFish",
+            "fishType": "Ancient Map Fragment - The Heart",
+            "count": 1
+        }
+    ],
+    "rewards": {
+        "items": [
+            {
+                "itemId": "iron_ingot",
+                "count": 1
+            }
+        ],
+        "description": "An iron ingot to aid in your expedition equipment needs."
+    },
+    "prerequisites": {
+        "level": 1,
+        "completedQuestIds": ["angler_bet_quest_50lb_fish"]
+    }
+} 

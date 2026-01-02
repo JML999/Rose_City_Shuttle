@@ -1,0 +1,21 @@
+{
+  "id": "daily_weigh_50lb_fish",
+  "title": "Heavy Catch",
+  "description": "Weigh a 50+ pound fish.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "weighFishByWeight",
+      "minWeight": 50,
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

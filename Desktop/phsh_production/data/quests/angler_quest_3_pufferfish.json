@@ -1,0 +1,29 @@
+{
+  "id": "angler_quest_3_big_grouper",
+  "title": "Angler's Challenge: The Big One",
+  "description": "Finnigan's heard rumors about massive Groupers in these waters. He wants proof! Catch a Grouper weighing at least 100 pounds to show him it's not just fisherman's tales.",
+  "giverNpcId": "angler",
+  "turnInNpcId": "angler",
+  "fishingTip": "Big Groupers lurk in deep rocky areas. You'll need skill and patience to land one this size!",
+  "objectives": [
+    {
+      "type": "catchFishMinWeight",
+      "fishType": "Grouper",
+      "minimumWeight": 100.0,
+      "count": 1,
+      "description": "Catch 1 Grouper weighing at least 100 pounds."
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "map_fragment_heart",
+        "count": 1
+      }
+    ]
+  },
+  "prerequisites": {
+    "completedQuestIds": ["angler_quest_2_kelp_eel"]
+  },
+  "repeatable": false
+} 

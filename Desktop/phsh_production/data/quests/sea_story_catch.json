@@ -1,0 +1,16 @@
+{
+  "id": "sea_story_catch",
+  "title": "*hic*...dat fish is trendin'!",
+  "description": "[FISH_TYPE] are trending! Cash one in for a coin bonus for 24 hours!",
+  "giverNpcId": "fitzwilliam",
+  "turnInNpcId": "fitzwilliam",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "[DYNAMIC_FISH_TYPE]",
+      "count": 1
+    }
+  ],
+  "rewards": {},
+  "repeatable": "daily"
+} 

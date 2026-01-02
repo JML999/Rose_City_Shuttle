@@ -1,0 +1,28 @@
+{
+    "id": "ancient_cartographer_shadow",
+    "title": "The Cartographer's Vault: Depths Fragment",
+    "description": "The final map fragment lies hidden at a dramatic waterfall where light pierces through shadows. Fish the waters below a cascading waterfall where mountain tears meet ancient pools to recover the Depths fragment. Use your Ancient Magnet to sense its presence in these mystical waters.",
+    "giverNpcId": "explorer",
+    "turnInNpcId": "explorer",
+    "fishingTip": "Fish below a dramatic waterfall where light and shadow dance together. Use the Ancient Magnet as bait to detect the Depths fragment in these mystical waters.",
+    "objectives": [
+        {
+            "type": "catchFish",
+            "fishType": "Ancient Map Fragment - The Depths",
+            "count": 1
+        }
+    ],
+    "rewards": {
+        "items": [
+            {
+                "itemId": "iron_ingot",
+                "count": 1
+            }
+        ],
+        "description": "An iron ingot to help you forge a rod capable of retrieving the cartographer's final treasure."
+    },
+    "prerequisites": {
+        "level": 1,
+        "completedQuestIds": ["ancient_cartographer_toolmaster"]
+    }
+} 

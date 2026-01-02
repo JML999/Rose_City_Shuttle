@@ -1,0 +1,26 @@
+{
+    "id": "fishmonger",
+    "name": "Fishmonger",
+    "modelUri": "models/npcs/merchant.gltf", 
+    "modelScale": 0.9,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "How can I help you?",
+      "options": [
+        {
+          "text": "Sell this fish",
+          "response": "" 
+        },
+        {
+          "text": "Sell Fish Inventory",
+          "response": "" 
+        },
+        {
+          "text": "Nevermind",
+          "response": "Alright then. Let me know if you need anything!"
+        }
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

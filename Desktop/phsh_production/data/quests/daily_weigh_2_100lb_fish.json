@@ -1,0 +1,21 @@
+{
+  "id": "daily_weigh_2_100lb_fish",
+  "title": "Double Monster",
+  "description": "Weigh 2 fish that are each 100+ pounds.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "weighFishByWeight",
+      "minWeight": 100,
+      "count": 2
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

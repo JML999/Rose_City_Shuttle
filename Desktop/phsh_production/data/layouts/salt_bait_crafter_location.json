@@ -1,0 +1,14 @@
+{
+    "anchorCoordinate": { "x": -32, "y": 31, "z": -38 },
+    "description": "Ms. Dee's Bait Crafting Location",
+    "entities": [
+      {
+        "type": "npc",
+        "id": "salt_bait_crafter",
+        "definitionId": "salt_bait_crafter",
+        "relativePosition": { "x": 0, "y": 0, "z": 0 },
+        "facing": { "x": -31, "y": 31, "z": -36.5 }
+      }
+    ]
+}
+

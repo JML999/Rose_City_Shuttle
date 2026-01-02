@@ -1,0 +1,20 @@
+{
+  "id": "daily_weigh_10_fish",
+  "title": "Master Weigher",
+  "description": "Weigh 10 different fish.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "weighFish",
+      "count": 10
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

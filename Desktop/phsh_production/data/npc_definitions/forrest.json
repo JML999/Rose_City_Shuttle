@@ -1,0 +1,12 @@
+{
+    "id": "forrest",
+    "name": "Forrest",
+    "modelUri": "models/npcs/forrest.gltf", 
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "The stars hold many secrets...",
+      "options": []
+    }
+  }
+

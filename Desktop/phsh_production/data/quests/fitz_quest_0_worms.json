@@ -1,0 +1,30 @@
+{
+  "id": "fitz_quest_0_worms",
+  "title": "Getting Started: Worms",
+  "description": "You looking to start fishing, matey? Bring me five worms from dirt blocks and I'll help you get started.",
+  "giverNpcId": "fitzwilliam",
+  "turnInNpcId": "fitzwilliam",
+  "objectives": [
+    {
+      "type": "gatherItem",
+      "itemId": "worm",
+      "count": 5,
+      "description": "Gather 5 worms by digging in dirt blocks around the dock."
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "beginner-rod",
+        "count": 1
+      }
+    ]
+  },
+  "prerequisites": {},
+  "repeatable": false
+}
+
+
+
+
+

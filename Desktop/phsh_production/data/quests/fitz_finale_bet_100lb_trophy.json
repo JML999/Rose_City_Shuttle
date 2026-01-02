@@ -1,0 +1,33 @@
+{
+    "id": "fitz_finale_bet_100lb_trophy",
+    "title": "Fitz's Final Bet: The Trophy Challenge",
+    "description": "*hic*... You found my note, eh? Well, I got to that last fragment first, ole sport. But I'll make you a deal - I bet you can't catch a trophy fish weighing at least 100 pounds in the next 24 hours. If you win, I'll give you the last fragment. If you lose... well, you can try again. What do you say?",
+    "giverNpcId": "fitzwilliam",
+    "turnInNpcId": "fitzwilliam",
+    "fishingTip": "You need to catch any trophy fish (marked with medal status) weighing at least 100 pounds within 24 hours of accepting this bet!",
+    "objectives": [
+        {
+            "type": "catchFishMinWeight",
+            "fishType": "Any",
+            "minimumWeight": 100.0,
+            "count": 1,
+            "description": "Catch any trophy fish weighing at least 100 pounds within 24 hours."
+        }
+    ],
+    "rewards": {
+        "coins": 200,
+        "items": [
+            {
+                "itemId": "ancient_fragment",
+                "count": 1
+            }
+        ]
+    },
+    "prerequisites": {
+        "completedQuestIds": ["explorer_fragments_of_magnet"]
+    },
+    "repeatable": false,
+    "timeLimit": 86400000
+}
+
+

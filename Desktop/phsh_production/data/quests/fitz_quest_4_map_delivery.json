@@ -1,0 +1,39 @@
+{
+  "id": "fitz_quest_4_map_delivery",
+  "title": "The Ancient Scroll",
+  "description": "Fitz has entrusted you with an ancient scroll. The scroll reveals that the author's treasure key has been broken into three pieces, each hidden behind a unique test: Forge (magnetic field), Mind (hidden under stars), and Strength (earth-moving power). Show the scroll to those who might know more about each piece, then return with all three relic shards.",
+  "giverNpcId": "fitzwilliam",
+  "turnInNpcId": "fitzwilliam",
+  "objectives": [
+    {
+      "type": "custom",
+      "id": "show_scroll_to_explorer",
+      "description": "Read the scroll and seek out those who can help solve each clue.",
+      "count": 1
+    },
+    {
+      "type": "custom",
+      "id": "collect_all_three_shards",
+      "description": "Collect all three relic shards from the Forge, Mind, and Strength tests.",
+      "count": 1
+    },
+    {
+      "type": "custom",
+      "id": "show_shards_to_fitzwilliam",
+      "description": "Show the three relic shards to Fitzwilliam.",
+      "count": 1
+    },
+    {
+      "type": "custom",
+      "id": "assemble_shards_with_wizard",
+      "description": "Combine the shards to complete the relic.",
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "prerequisites": {
+    "completedQuestIds": ["fitz_quest_3_big_grouper"]
+  }
+}

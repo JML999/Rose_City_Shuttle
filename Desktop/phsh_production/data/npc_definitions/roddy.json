@@ -1,0 +1,27 @@
+
+{
+    "id": "roddy",
+    "name": "Roddy",
+    "modelUri": "models/npcs/blacksmith.gltf", 
+    "modelScale": 0.9,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "How can I help you?",
+      "options": [
+        {
+          "text": "Buy Fishing Rod.",
+          "response": "" 
+        },
+        {
+          "text": "Tell me about rods.",
+          "response": "I sell basic rods for coins. Advanced rods require special metals like iron, gold, or mithril - bring those materials and I'll craft them for you. Some rare rods can only be found in treasure chests!" 
+        },
+        {
+          "text": "Nevermind",
+          "response": "Alright then. Let me know if you need anything!"
+        }
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

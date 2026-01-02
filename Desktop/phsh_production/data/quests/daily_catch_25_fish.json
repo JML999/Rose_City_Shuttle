@@ -1,0 +1,20 @@
+{
+  "id": "daily_catch_25_fish",
+  "title": "Fishing Marathon",
+  "description": "Catch 25 fish (total).",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "count": 25
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

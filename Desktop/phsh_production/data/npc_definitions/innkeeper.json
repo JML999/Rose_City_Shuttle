@@ -1,0 +1,17 @@
+{
+    "id": "innkeeper",
+    "name": "Innkeeper Bram",
+    "modelUri": "models/npcs/innkeeper.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog", 
+      "prompt": "Sorry, the Inn is full. Need a drink, or perhaps some news?",
+      "dialogOptions": [
+        "I need a room.", 
+        "What drinks do you serve?",
+        "Any local gossip?"
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

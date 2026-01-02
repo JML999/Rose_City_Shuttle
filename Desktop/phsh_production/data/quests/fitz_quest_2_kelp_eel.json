@@ -1,0 +1,29 @@
+{
+  "id": "fitz_quest_2_kelp_eel",
+  "title": "Fitz's Job: Kelp Eels",
+  "description": "*hic*... Good work! You're a chip off the ole dock, aren't ya matey? I need 2 Kelp Eels for a... client of mine. Kelp Eels love shrimp and shady waters! Try searching the islands for kelp beds - look for dark, kelp-covered waters.",
+  "giverNpcId": "fitzwilliam",
+  "turnInNpcId": "fitzwilliam",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Kelp Eel",
+      "count": 2,
+      "description": "Catch 2 Kelp Eels. Tip: Use shrimp bait in kelp beds - search the islands for shady kelp-covered waters."
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "iron_ingot",
+        "count": 1
+      }
+    ]
+  },
+  "prerequisites": {
+    "completedQuestIds": ["fitz_quest_1_sardines"]
+  },
+  "repeatable": false
+}
+
+

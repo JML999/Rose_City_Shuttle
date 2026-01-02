@@ -1,0 +1,179 @@
+{
+    "anchorCoordinate": { "x": 228, "y": 21, "z": 140 }, 
+    "description": "Shadow Isle Layout",
+    "entities": [
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 3.97, "y": -9.5, "z": 57.86 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_2",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 2.47, "y": -9.5, "z": 57.36 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_3",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 4.97, "y": -9.5, "z": 56.86 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 2.97, "y": -9.5, "z": 58.36 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_2",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 4.47, "y": -9.5, "z": 55.86 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_3",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 1.97, "y": -9.5, "z": 56.86 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 4.97, "y": -9.5, "z": 58.86 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_2",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 5.47, "y": -9.5, "z": 58.36 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_3",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 0.97, "y": -9.5, "z": 57.86 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "inlet_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 3.47, "y": -9.5, "z": 56.36 },
+        "scale": 3.25
+             },
+
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 32.10, "y": -9.5, "z": 68.09 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_2",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 33.10, "y": -9.5, "z": 69.09 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_3",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 30.60, "y": -9.5, "z": 67.09 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 33.60, "y": -9.5, "z": 67.59 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_2",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 31.60, "y": -9.5, "z": 69.59 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_3",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 31.10, "y": -9.5, "z": 66.59 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 32.60, "y": -9.5, "z": 66.09 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_2",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 30.10, "y": -9.5, "z": 70.09 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_3",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 34.60, "y": -9.5, "z": 68.59 },
+        "scale": 3.25
+      },
+      {
+        "type": "furniture",
+        "id": "shadow_kelp_1",
+        "modelUri": "models/environment/waving-grass.gltf",
+        "relativePosition": { "x": 29.60, "y": -9.5, "z": 67.59 },
+        "scale": 3.25
+      },
+
+      {
+        "type": "furniture",
+        "id": "campsite_tent",
+        "modelUri": "models/decor/tent.gltf",
+        "relativePosition": { "x": 27.91, "y": -7.21, "z": 34.62 },
+        "scale": 3.5
+      },
+      {
+        "type": "furniture",
+        "id": "campsite_campfire",
+        "modelUri": "models/decor/campfire.gltf",
+        "relativePosition": { "x": 27.84, "y": -7.5, "z": 37.66 },
+        "scale": 2.0
+      },
+      {
+        "type": "furniture",
+        "id": "campsite_barricade",
+        "modelUri": "models/decor/wood-barricade-2.gltf",
+        "relativePosition": { "x": 70.12, "y": -6.21, "z": 48.05 },
+        "scale": 1.5,
+        "rotationY": 237.2,
+        "facing": { "x": 296.67, "y": 14.79, "z": 190.02 }
+      },
+      {
+        "type": "npc",
+        "id": "digger",
+        "definitionId": "digger",
+       
+        "relativePosition": { "x": 70.12, "y": -6.21, "z": 50.05 },
+        "facing": { "x": 296.67, "y": 14.79, "z": 190.02 }
+      }
+    ]
+  } 

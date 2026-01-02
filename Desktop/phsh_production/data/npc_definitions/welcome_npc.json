@@ -1,0 +1,29 @@
+{
+    "id": "welcome_npc",
+    "name": "Phsher",
+    "modelUri": "models/npcs/merchant.gltf",
+    "modelScale": 0.9,
+    "interaction": {
+        "type": "dialog",
+        "prompt": "Welcome to PHSH! Ready to get casting?",
+        "options": [
+            {
+                "text": "How do I fish?",
+                "response": ""
+            },
+            {
+                "text": "Where do I get bait?",
+                "response": ""
+            },
+            {
+                "text": "Thanks!",
+                "response": ""
+            }
+        ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+}
+
+
+

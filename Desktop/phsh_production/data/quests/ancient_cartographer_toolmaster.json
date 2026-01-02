@@ -1,0 +1,28 @@
+{
+    "id": "ancient_cartographer_toolmaster",
+    "title": "The Cartographer's Vault: Knowledge Fragment",
+    "description": "The second map fragment awaits discovery. The Explorer's research points to ancient freshwater pools on outer islands where master builders once worked. Fish these sacred waters near ancient stone structures to recover the Knowledge fragment using your Ancient Magnet.",
+    "giverNpcId": "explorer",
+    "turnInNpcId": "explorer",
+    "fishingTip": "Fish ancient freshwater pools on outer islands that contain stone ruins or structures. Use the Ancient Magnet as bait to detect the Knowledge fragment.",
+    "objectives": [
+        {
+            "type": "catchFish",
+            "fishType": "Ancient Map Fragment - The Knowledge",
+            "count": 1
+        }
+    ],
+    "rewards": {
+        "items": [
+            {
+                "itemId": "mithril_nugget",
+                "count": 3
+            }
+        ],
+        "description": "Ancient mithril fragments discovered near the builder's sacred pools."
+    },
+    "prerequisites": {
+        "level": 1,
+        "completedQuestIds": ["ancient_cartographer_fountain"]
+    }
+} 

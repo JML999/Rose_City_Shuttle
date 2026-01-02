@@ -1,0 +1,27 @@
+{
+    "id": "salt_collector_quest",
+    "title": "Collecting Rock Salt",
+    "description": "Ms. Dee needs help collecting 10 rock salts. She can't climb the rocky terrain herself, but needs them to create salty mackerel bait for her husband.",
+    "giverNpcId": "salt_bait_crafter",
+    "turnInNpcId": "salt_bait_crafter",
+    "fishingTip": "Rock salt can be found by breaking rocks in rocky terrain areas.",
+    "objectives": [
+        {
+            "type": "collectItems",
+            "itemIds": ["rock_salt"],
+            "count": 10,
+            "description": "Collect 10 rock salts for Ms. Dee"
+        }
+    ],
+    "rewards": {
+        "items": [],
+        "coins": 0,
+        "description": "Thanks for your help! Come back anytime with some Mackerel and salt and I'll cook you some of my famous salty bait!"
+    },
+    "prerequisites": {
+        "level": 1,
+        "completedQuestIds": []
+    },
+    "repeatable": false
+}
+

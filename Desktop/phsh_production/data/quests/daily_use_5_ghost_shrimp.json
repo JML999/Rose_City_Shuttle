@@ -1,0 +1,21 @@
+{
+  "id": "daily_use_5_ghost_shrimp",
+  "title": "Ghost Shrimp Bait",
+  "description": "Use 5 Ghost Shrimp bait.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "useBaitType",
+      "baitType": "ghost_shrimp",
+      "count": 5
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

@@ -1,0 +1,41 @@
+{
+  "anchorCoordinate": { "x": -106.72, "y": 15.79, "z": 143.59 },
+  "description": "Brock and Pressure Plates Layout - Strength Test Quest",
+  "entities": [
+    {
+      "type": "npc",
+      "id": "brock",
+      "definitionId": "brock",
+      "relativePosition": { "x": -1.5, "y": 0.25, "z": 0 },
+      "facing": { "x": -106.72, "y": 15.79, "z": 143.59 }
+    },
+    {
+      "type": "entity",
+      "id": "pressure_plate_predator",
+      "modelUri": "models/decor/pressure_plate_predator.gltf",
+      "modelScale": 3.0,
+      "definitionId": "pressure_plate_predator",
+      "relativePosition": { "x": 2, "y": -0.7, "z": 0 },
+      "facing": { "x": -104.77, "y": 15.79, "z": 145.72 }
+    },
+    {
+      "type": "entity",
+      "id": "pressure_plate_insect",
+      "modelUri": "models/decor/pressure_plate_insect.gltf",
+      "modelScale": 3.0,
+      "definitionId": "pressure_plate_insect",
+      "relativePosition": { "x": 140.8, "y": 10.25, "z": -201.02 },
+      "facing": { "x": 31.40, "y": 26.79, "z": -57.44 }
+    },
+    {
+      "type": "entity",
+      "id": "pressure_plate_fish",
+      "modelUri": "models/decor/pressure_plate_fish.gltf",
+      "modelScale": 3.0,
+      "definitionId": "pressure_plate_fish",
+      "relativePosition": { "x": 70, "y": 0, "z": -100 },
+      "facing": { "x": -36.72, "y": 15.79, "z": 43.59 }
+    }
+  ]
+}
+

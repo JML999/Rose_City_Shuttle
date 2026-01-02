@@ -1,0 +1,17 @@
+{
+    "id": "sea_story_gossip",
+    "name": "Whisper",
+    "modelUri": "models/npcs/gabber.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog",
+      "options": [
+        {
+          "text": "Thanks for the tip!"
+        }
+      ],
+      "fallbackStories": []
+    },
+    "idleAnimation": "idle"
+}
+

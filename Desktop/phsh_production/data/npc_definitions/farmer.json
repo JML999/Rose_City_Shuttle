@@ -1,0 +1,13 @@
+{
+    "id": "farmer",
+    "name": "Farmer",
+    "modelUri": "models/npcs/farmer.gltf",
+    "modelScale": 1.0,
+    "interactAnimation": "wave",
+    "interaction": {
+      "type": "dialog", 
+      "prompt": "Those darned kids keep nabbing my chickens! They use their feathers to make fly hooks.  Wait till I get my hands on them!",
+      "dialogOptions": [
+      ]
+    }
+  }

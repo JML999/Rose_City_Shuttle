@@ -1,0 +1,21 @@
+{
+  "id": "daily_use_10_glow_worm",
+  "title": "Glow Worm Bait",
+  "description": "Use 10 Glow Worm bait.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "useBaitType",
+      "baitType": "glow_worm",
+      "count": 10
+    }
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

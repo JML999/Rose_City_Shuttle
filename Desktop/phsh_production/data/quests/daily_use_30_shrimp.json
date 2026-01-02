@@ -1,0 +1,21 @@
+{
+  "id": "daily_use_30_shrimp",
+  "title": "Shrimp Bait",
+  "description": "Use 30 Shrimp bait.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "useBaitType",
+      "baitType": "shrimp",
+      "count": 30
+    }
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

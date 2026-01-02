@@ -1,0 +1,26 @@
+{
+    "id": "wizard",
+    "name": "Orin the Enchanter", 
+    "modelUri": "models/npcs/wizard.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "I spend my days studying these ancient runes...",
+      "options": [
+        {
+          "text": "What have you discovered?",
+          "response": ""
+        },
+        {
+          "text": "Where do I find runes?",
+          "response": "Ancient treasure chests hold these mystical artifacts. Cast your line into the depths and you may discover one among the treasures of the old civilization."
+        },
+        {
+          "text": "Can you enchant my rod?",
+          "response": ""
+        }
+      ]
+    },
+    "interactAnimation": "idle",
+    "interactAnimationLooped": true
+} 

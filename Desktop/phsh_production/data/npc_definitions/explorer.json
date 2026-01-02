@@ -1,0 +1,26 @@
+{
+    "id": "explorer",
+    "name": "Dr. Solara",
+    "modelUri": "models/npcs/explorer.gltf", 
+    "modelScale": 1.25,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "Fascinating! Another angler drawn to these ancient waters...Im looking for an experienced angler to help fund my research. I'll trade my explorer rod for your help.",
+      "options": [
+        {
+          "text": "I'll help you",
+          "response": "" 
+        },
+        {
+          "text": "What research?",
+          "response": "3 years studying these ruins. Fish patterns here are... connected to something ancient." 
+        },
+        {
+          "text": "What do you need?",
+          "response": "2000 coins to continue my excavation of these ruins. Ill trade my explorer rod for the help, but i need to make sure you're up to the task."
+        }
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

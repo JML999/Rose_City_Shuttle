@@ -1,0 +1,12 @@
+{
+    "id": "drunk_farmer_2",
+    "name": "Drunk Farmer",
+    "modelUri": "models/npcs/drunk_farmer_2.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog", 
+      "prompt": "...",
+      "dialogOptions": [
+      ]
+    }
+  }

@@ -1,0 +1,26 @@
+{
+  "id": "angler",
+  "name": "Angler", 
+  "modelUri": "models/npcs/angler.gltf",
+  "modelScale": 1.0,
+  "interaction": {
+    "type": "dialog",
+    "prompt": "", 
+    "options": [
+      {
+        "text": "Sure, I'll help!",
+        "response": "" 
+      },
+      {
+        "text": "Sorry, maybe later.",
+        "response": "Ah, alright. Let me know if you change your mind."
+      },
+      {
+        "text": "What's the quota?",
+        "response": "Just need one good [QUEST_FISH]. If you bring it to me, I can give you a small reward!"
+      }
+    ]
+  },
+  "interactAnimation": "wave",
+  "interactAnimationLooped": true
+} 

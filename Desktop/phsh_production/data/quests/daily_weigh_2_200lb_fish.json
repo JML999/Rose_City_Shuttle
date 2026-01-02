@@ -1,0 +1,21 @@
+{
+  "id": "daily_weigh_2_200lb_fish",
+  "title": "Double Titan",
+  "description": "Weigh 2 fish that are each 200+ pounds.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "weighFishByWeight",
+      "minWeight": 200,
+      "count": 2
+    }
+  ],
+  "rewards": {
+    "experience": 25
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

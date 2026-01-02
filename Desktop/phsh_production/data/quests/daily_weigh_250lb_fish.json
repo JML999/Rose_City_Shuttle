@@ -1,0 +1,21 @@
+{
+  "id": "daily_weigh_250lb_fish",
+  "title": "Titan Catch",
+  "description": "Weigh a 250+ pound fish.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "weighFishByWeight",
+      "minWeight": 250,
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "experience": 25
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

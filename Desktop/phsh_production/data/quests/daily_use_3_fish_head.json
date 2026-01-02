@@ -1,0 +1,21 @@
+{
+  "id": "daily_use_3_fish_head",
+  "title": "Fish Head Bait",
+  "description": "Use 3 Fish Head bait.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "useBaitType",
+      "baitType": "fish_head",
+      "count": 3
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

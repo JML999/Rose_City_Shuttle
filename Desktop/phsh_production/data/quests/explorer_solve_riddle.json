@@ -1,0 +1,29 @@
+{
+  "id": "explorer_solve_riddle",
+  "title": "The Forge Quest",
+  "description": "The Explorer has recognized the scroll's forge clue! Forge a magnet at the Toolmaster and use it to fish the relic shard at the pyramid's pool. The magnet will break the magnetic lock.",
+  "giverNpcId": "explorer",
+  "turnInNpcId": "explorer",
+  "fishingTip": "Fish the relic shard at the pyramid's pool using your magnet. The magnetic lock should break when you use it!",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Relic Shard",
+      "count": 1,
+      "description": "Fish the relic shard at the pyramid's pool using your magnet"
+    }
+  ],
+  "rewards": {
+    "items": [],
+    "experience": 200,
+    "description": "You've successfully retrieved the relic shard from the pyramid pool - one of three pieces needed to unlock the ancient treasure."
+  },
+  "prerequisites": {
+    "level": 1,
+    "completedQuestIds": ["fitz_quest_4_map_delivery"]
+  },
+  "autoComplete": true,
+  "repeatable": false
+}
+
+

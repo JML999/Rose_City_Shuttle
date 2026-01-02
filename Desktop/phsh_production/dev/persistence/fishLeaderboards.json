@@ -1,0 +1,692 @@
+{
+  "Catfish": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 69.2,
+        "value": 288,
+        "timestamp": 1764868434824.6262,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 69.2,
+        "value": 288,
+        "timestamp": 1764868434824.6262,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Puffer Fish": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 34.6,
+        "value": 230,
+        "timestamp": 1766399437403.2405,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      },
+      {
+        "playerName": "player-1",
+        "playerId": "player-1",
+        "weight": 21.8,
+        "value": 145,
+        "timestamp": 1766778289846,
+        "rarity": "rare",
+        "location": "-37.3, 27.8, -3.3"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 34.6,
+        "value": 230,
+        "timestamp": 1766399437403.2405,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      },
+      {
+        "playerName": "player-1",
+        "playerId": "player-1",
+        "weight": 21.8,
+        "value": 145,
+        "timestamp": 1766778289846,
+        "rarity": "rare",
+        "location": "-37.3, 27.8, -3.3"
+      }
+    ]
+  },
+  "Pike": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 93.35,
+        "value": 115,
+        "timestamp": 1764645731997.292,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 93.35,
+        "value": 115,
+        "timestamp": 1764645731997.292,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Sawfish": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 900,
+        "value": 864,
+        "timestamp": 1764602823602.6729,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 900,
+        "value": 864,
+        "timestamp": 1764602823602.6729,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Trout": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 2.3,
+        "value": 3,
+        "timestamp": 1765543280719.3665,
+        "rarity": "uncommon",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 2.3,
+        "value": 3,
+        "timestamp": 1765543280719.3665,
+        "rarity": "uncommon",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Largemouth Bass": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 2.3,
+        "value": 3,
+        "timestamp": 1766002805331.249,
+        "rarity": "uncommon",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 2.3,
+        "value": 3,
+        "timestamp": 1766002805331.249,
+        "rarity": "uncommon",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Black Marbled Koi": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 5.9,
+        "value": 885,
+        "timestamp": 1765263408031.8784,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 5.9,
+        "value": 885,
+        "timestamp": 1765263408031.8784,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Blue Marbled Koi": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 5.9,
+        "value": 885,
+        "timestamp": 1765427259525.2957,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 5.9,
+        "value": 885,
+        "timestamp": 1765427259525.2957,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Anglerfish": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 18.35,
+        "value": 61,
+        "timestamp": 1766410396748.826,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 18.35,
+        "value": 61,
+        "timestamp": 1766410396748.826,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Squid": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 653.5,
+        "value": 196,
+        "timestamp": 1766322777374.5044,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 653.5,
+        "value": 196,
+        "timestamp": 1766322777374.5044,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Red Snapper": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 188.75,
+        "value": 201,
+        "timestamp": 1765170897628.3098,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 188.75,
+        "value": 201,
+        "timestamp": 1765170897628.3098,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Sea Bass": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 145,
+        "value": 90,
+        "timestamp": 1766216050758.1423,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 145,
+        "value": 90,
+        "timestamp": 1766216050758.1423,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Barracuda": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 152.75,
+        "value": 141,
+        "timestamp": 1765710275585.3674,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 152.75,
+        "value": 141,
+        "timestamp": 1765710275585.3674,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Shipjack Tuna": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 596.6,
+        "value": 426,
+        "timestamp": 1766382728348.1038,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 596.6,
+        "value": 426,
+        "timestamp": 1766382728348.1038,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Grouper": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 561.25,
+        "value": 404,
+        "timestamp": 1766210447620.8896,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 561.25,
+        "value": 404,
+        "timestamp": 1766210447620.8896,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Salmon": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 111.5,
+        "value": 167,
+        "timestamp": 1766199649117.816,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 111.5,
+        "value": 167,
+        "timestamp": 1766199649117.816,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Marlin": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 679.75,
+        "value": 399,
+        "timestamp": 1766234227295.0466,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 679.75,
+        "value": 399,
+        "timestamp": 1766234227295.0466,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Glass Anglerfish": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 5.9,
+        "value": 708,
+        "timestamp": 1765310958386.5767,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 5.9,
+        "value": 708,
+        "timestamp": 1765310958386.5767,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Vampire Squid": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 653.5,
+        "value": 784,
+        "timestamp": 1765119804106.0884,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 653.5,
+        "value": 784,
+        "timestamp": 1765119804106.0884,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Great White Shark": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 1312.5,
+        "value": 897,
+        "timestamp": 1765388799849.8176,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 1312.5,
+        "value": 897,
+        "timestamp": 1765388799849.8176,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Glass Squid": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 523.5,
+        "value": 6282,
+        "timestamp": 1765372466620.275,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 523.5,
+        "value": 6282,
+        "timestamp": 1765372466620.275,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Ghost Piranha": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 13.7,
+        "value": 342,
+        "timestamp": 1764519835137.8818,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 13.7,
+        "value": 342,
+        "timestamp": 1764519835137.8818,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Ghost Pufferfish": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 66.05,
+        "value": 1100,
+        "timestamp": 1764780301051.1187,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 66.05,
+        "value": 1100,
+        "timestamp": 1764780301051.1187,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Ghost Shark": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 1052.5,
+        "value": 936,
+        "timestamp": 1765794841883.4724,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 1052.5,
+        "value": 936,
+        "timestamp": 1765794841883.4724,
+        "rarity": "legendary",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Yellowtail Snapper": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 221.25,
+        "value": 295,
+        "timestamp": 1765384266049.9565,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 221.25,
+        "value": 295,
+        "timestamp": 1765384266049.9565,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Dune Shark": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 566.5,
+        "value": 807,
+        "timestamp": 1765883725379.5093,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 566.5,
+        "value": 807,
+        "timestamp": 1765883725379.5093,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Moray Eel": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 99.6,
+        "value": 232,
+        "timestamp": 1766247652355.8948,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 99.6,
+        "value": 232,
+        "timestamp": 1766247652355.8948,
+        "rarity": "rare",
+        "location": "Historical Catch"
+      }
+    ]
+  },
+  "Hammerhead Shark": {
+    "byWeight": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 1004.75,
+        "value": 780,
+        "timestamp": 1766545009716.8438,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ],
+    "byValue": [
+      {
+        "playerName": "Historical Angler",
+        "playerId": "historical_angler",
+        "weight": 1004.75,
+        "value": 780,
+        "timestamp": 1766545009716.8438,
+        "rarity": "epic",
+        "location": "Historical Catch"
+      }
+    ]
+  }
+}

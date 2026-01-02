@@ -1,0 +1,38 @@
+{
+  "id": "researcher_pharaoh_hilt",
+  "title": "Assembling the Relic Rod",
+  "description": "The researcher found a blueprint for something in a tomb they excavated. They need 3 ancient driftwood and 1 gold ingot.",
+  "giverNpcId": "researcher",
+  "turnInNpcId": "researcher",
+  "objectives": [
+    {
+      "type": "collectItems",
+      "itemIds": ["ancient_driftwood"],
+      "count": 3,
+      "description": "Collect 3 ancient driftwood (requires ivory rod)"
+    },
+    {
+      "type": "gatherItem",
+      "itemId": "gold_ingot",
+      "count": 1,
+      "description": "Gather 1 gold ingot"
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "pharaoh_hilt",
+        "count": 1
+      }
+    ],
+    "experience": 200
+  },
+  "prerequisites": {
+    "completedQuestIds": ["explorer_lionfish_request"]
+  },
+  "autoComplete": false,
+  "repeatable": false
+}
+
+
+

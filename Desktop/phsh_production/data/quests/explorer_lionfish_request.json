@@ -1,0 +1,30 @@
+{
+  "id": "explorer_lionfish_request",
+  "title": "A Lionfish for Research",
+  "description": "The Explorer needs a lionfish for research. Try using scarab bait - they work great in the dig site waters.",
+  "giverNpcId": "explorer",
+  "turnInNpcId": "explorer",
+  "fishingTip": "Break leaves around the dig site to find scarabs. They're excellent bait for fish in these waters.",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Lionfish",
+      "count": 1,
+      "description": "Catch 1 Lionfish using scarab bait"
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "ivory_rod",
+        "count": 1
+      }
+    ],
+    "experience": 150
+  },
+  "prerequisites": {},
+  "autoComplete": false,
+  "repeatable": false
+}
+
+

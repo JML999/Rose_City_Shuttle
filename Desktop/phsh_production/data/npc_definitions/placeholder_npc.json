@@ -1,0 +1,21 @@
+{
+  "id": "placeholder_npc",
+  "name": "Placeholder",
+  "modelUri": "models/npcs/merchant.gltf",
+  "modelScale": 0.9,
+  "interaction": {
+    "type": "dialog",
+    "prompt": "...",
+    "options": [
+      {
+        "text": "Nevermind",
+        "response": "..."
+      }
+    ]
+  },
+  "interactAnimation": "wave",
+  "interactAnimationLooped": false
+}
+
+
+

@@ -1,0 +1,475 @@
+{
+    "anchorCoordinate": { "x": 6, "y": 28, "z": -27.96 }, 
+    "description": "Main Street Layout",
+    "entities": [
+      {
+        "type": "npc",
+        "id": "angler", 
+        "definitionId": "angler", 
+        "relativePosition": { "x": -11, "y": 0.95, "z": -3.00 }, 
+        "facing": { "x": -5.53, "y": 28.75, "z": -28.91 }
+      },
+
+      {
+        "type": "npc",
+        "id": "donkey", 
+        "definitionId": "donkey", 
+        "relativePosition": { "x": -25.5, "y": 1.4, "z": -17.8 }, 
+        "facing": { "x": -21.58, "y": 28.75, "z": -45.44 }
+      },
+
+      {
+        "type": "npc",
+        "id": "donkey_1", 
+        "definitionId": "donkey", 
+        "relativePosition": { "x": -25.5, "y": 1.4, "z": -19.8 }, 
+        "facing": { "x": -21.58, "y": 28.75, "z": -46.44 }
+      },
+
+
+
+      {
+        "type": "furniture",
+        "id": "wheelbarrow",
+        "modelUri": "models/decor/wheelbarrow_fish.gltf",
+        "relativePosition": { "x": 10, "y": 0.95, "z": 3.8 },
+        "facing": { "x": 23.66, "y": 28.75, "z": -24.91 },
+        "scale": 1.15
+      },
+
+      {
+        "type": "furniture",
+        "id": "wheelbarrow_farmer",
+        "modelUri": "models/decor/wheelbarrow.gltf",
+        "relativePosition": { "x": -35, "y": 0.75, "z": -31.04 },
+        "facing": { "x": -29, "y": 28.75, "z": -59 },
+        "scale": 1.15
+      },
+
+      {
+        "type": "npc",
+        "id": "farmer", 
+        "definitionId": "farmer", 
+        "relativePosition": { "x": -41, "y": 1, "z": -26.04 }, 
+        "facing": { "x": -35, "y": 28.75, "z": -54 }
+      },
+
+      {
+        "type": "furniture",
+        "id": "pig_1",
+        "modelUri": "models/npcs/pig.gltf",
+        "relativePosition": { "x": -55, "y": -0.36, "z": -24.84 },
+        "facing": { "x": -41, "y": 28, "z": -26 },
+        "scale": 1.0
+      },
+
+      {
+        "type": "furniture",
+        "id": "pig_2",
+        "modelUri": "models/npcs/pig.gltf",
+        "relativePosition": { "x": -59, "y": -0.36, "z": -22.04 },
+        "facing": { "x": -41, "y": 28, "z": -26 },
+        "scale": 1.0
+      },
+
+      {
+        "type": "furniture",
+        "id": "wheelbarrow",
+        "modelUri": "models/decor/wheelbarrow.gltf",
+        "relativePosition": { "x": -22, "y": 0.95, "z": 5 },
+        "facing": { "x": -19.53, "y": 28.75, "z": -22.91 },
+        "scale": 1.5
+      },
+
+
+
+      
+
+      {
+        "type": "furniture",
+        "id": "easel",
+        "modelUri": "models/decor/easel.gltf",
+        "relativePosition": {
+          "x": -21.88,
+          "y": 7.25,
+          "z": 21.5
+        },
+        "facing": { "x": -14.19, "y": 34.55, "z": -10.22 },
+        "scale": 1
+      },
+      {
+        "type": "furniture",
+        "id": "paint_bucket",
+        "modelUri": "models/decor/paint_bucket.gltf",
+        "relativePosition": {
+          "x": -22.33,
+          "y": 6.25,
+          "z": 20.00
+        },
+       "facing": { "x": -14.96, "y": 34.55, "z": -10.59 },
+        "scale": 1
+      },
+
+      {
+        "type": "furniture",
+        "id": "art_counter_right_new",
+        "modelUri": "models/decor/middle_counter_90.gltf",
+        "relativePosition": {
+          "x": -18.5,
+          "y": 6.5,
+          "z": 21.00
+        },
+        "scale": 1
+      },
+
+      {
+        "type": "furniture",
+        "id": "art_counter_right_new",
+        "modelUri": "models/decor/brushes_counter.gltf",
+        "relativePosition": {
+          "x": -18.5,
+          "y": 6.925,
+          "z": 20.00
+        },
+        "scale": 1
+      },
+      {
+        "type": "furniture",
+        "id": "art_counter_right_new",
+        "modelUri": "models/decor/middle_counter_90.gltf",
+        "relativePosition": {
+          "x": -18.5,
+          "y": 6.5,
+          "z": 19.00
+        },
+        "scale": 1
+      },
+
+      {
+        "type": "furniture",
+        "id": "art_counter_right_new",
+        "modelUri": "models/decor/pallete_counter.gltf",
+        "relativePosition": {
+          "x": -18.5,
+          "y": 6.525,
+          "z": 18.00
+        },
+        "scale": 1
+      },
+      {
+        "type": "furniture",
+        "id": "art_counter_right_new",
+        "modelUri": "models/decor/middle_counter_90.gltf",
+        "relativePosition": {
+          "x": -18.5,
+          "y": 6.5,
+          "z": 17.00
+        },
+        "scale": 1
+      },
+
+
+
+
+      {
+        "type": "furniture",
+        "id": "carpet_collector",
+        "modelUri": "models/decor/carpet.gltf",
+        "relativePosition": {
+          "x": 2.0,
+          "y": 7.02,
+          "z": 11.00
+         },
+        "facing": {
+          "x": 4.16,
+          "y": 28,
+          "z": -17.0
+        },
+        "rotationY": 0,
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "rug_collector",
+        "modelUri": "models/decor/fish_rug.gltf",
+        "relativePosition": {
+          "x": 2.0,
+          "y": 7.02,
+          "z": 15.00
+         },
+
+        "rotationY": 0,
+        "scale": 5.0
+      },
+      {
+        "type": "furniture",
+        "id": "wall_mount_2_collector",
+        "modelUri": "models/decor/fishing_wall_mount_2_fish.gltf",
+        "relativePosition": {
+          "x": -1.0,
+          "y": 8.7,
+          "z": 10.25
+         },
+        "facing": {
+          "x": 4.81,
+          "y": 36,
+          "z": -14.5
+        },
+        "rotationY": 0,
+        "scale": 0.85
+      },
+      {
+        "type": "furniture",
+        "id": "mount_collector",
+        "modelUri": "models/decor/swordfish_mount.gltf",
+        "relativePosition": {
+          "x": 6.5,
+          "y": 8.80,
+          "z": 15.80
+         },
+
+        "rotationY": 0,
+        "scale": 0.9
+      },
+
+
+      {
+        "type": "furniture",
+        "id": "couch_collector",
+        "modelUri": "models/decor/couch.gltf",
+        "relativePosition": {
+          "x": 5.0,
+          "y": 7.80,
+          "z": 14.250
+         },
+        "facing": {
+          "x": 12.6,
+          "y": 35,
+          "z": -12.47
+        },
+        "rotationY": 0,
+        "scale": 1.0
+      },
+
+      {
+        "type": "furniture",
+        "id": "couch_collector",
+        "modelUri": "models/decor/coffee_table.gltf",
+        "relativePosition": {
+          "x": 4.5,
+          "y": 7.30,
+          "z": 15.5
+         },
+        "facing": {
+          "x": 12.6,
+          "y": 35,
+          "z": -12.47
+        },
+        "rotationY": 0,
+        "scale": 0.8
+      },
+
+      {
+        "type": "furniture",
+        "id": "corner_table_location_3",
+        "modelUri": "models/decor/table_square_wood.gltf",
+        "relativePosition": {
+          "x": 1.0,
+          "y": 7.5,
+          "z": 20.11
+         },
+        "rotationY": 0,
+        "scale": 1.0
+      },
+
+       {
+        "type": "furniture",
+        "id": "chair_corner_1_location_3",
+        "modelUri": "models/decor/chair_wood_worn.gltf",
+        "relativePosition": {
+          "x": 2.08,
+          "y": 7.5,
+          "z": 20.00
+         },
+        "facing": {
+           "x": 7,
+           "y": 5,
+           "z": -12.5
+         },
+        "scale": 1.10
+      },
+      {
+        "type": "furniture",
+         "id": "chair_corner_2_location_3",
+         "modelUri": "models/decor/chair_wood_worn.gltf",
+         "relativePosition": {
+           "x": -0.58,
+           "y": 7.5,
+           "z": 20.00
+          },
+          "facing": {
+            "x": 7,
+            "y": 5,
+            "z": -12.5
+          },
+         "scale": 1.10
+      },
+
+
+      {
+        "type": "furniture",
+         "id": "cabinet_collector",
+         "modelUri": "models/decor/cabinet_scroll.gltf",
+         "relativePosition": {
+           "x": -3.34,
+           "y": 7.8,
+           "z": 17.00
+          },
+         "facing": {
+            "x": 6.5,
+            "y": 35,
+            "z": -11.0
+          },
+         "scale": 1.0
+      },
+
+      {
+        "type": "furniture",
+         "id": "easel_collector",
+         "modelUri": "models/decor/easel_blank.gltf",
+         "relativePosition": {
+           "x": -5.5,
+           "y": 8,
+           "z": 12.0
+          },
+         "facing": {
+            "x": 6.5,
+            "y": 35,
+            "z": -11.0
+          },
+         "scale": 1.0
+      },
+
+
+
+
+
+
+
+      {
+        "type": "furniture",
+         "id": "wizard_bookshelf",
+         "modelUri": "models/decor/coffee_table.gltf",
+         "relativePosition": {
+           "x": 27.72,
+           "y": 6.25,
+           "z": 18.25
+          },
+          "facing": {
+            "x": 37.4,
+            "y": 35,
+            "z": -9.74
+          },
+         "scale": 1.0
+      },
+      {
+        "type": "furniture",
+         "id": "wizard_candles",
+         "modelUri": "models/decor/candles.gltf",
+         "relativePosition": {
+           "x": 27.72,
+           "y": 7.25,
+           "z": 18.25
+          },
+          "facing": {
+            "x": 37.4,
+            "y": 35,
+            "z": -9.74
+          },
+         "scale": 0.75
+      },
+      {
+        "type": "furniture",
+         "id": "wizard_bookshelf",
+         "modelUri": "models/decor/bookshelf.gltf",
+         "relativePosition": {
+           "x": 27.72,
+           "y": 7.20,
+           "z": 20.51
+          },
+          "facing": {
+            "x": 38.4,
+            "y": 35,
+            "z": -7.74
+          },
+         "scale": 1.0
+      },
+      {
+        "type": "furniture",
+         "id": "enchant_table_main",
+         "modelUri": "models/decor/enchant_table.gltf",
+         "relativePosition": {
+           "x": 29.82,
+           "y": 6.50,
+           "z": 17.51
+          },
+         "lookAtPosition": {
+            "x": 30.04,
+            "y": 6.25,
+            "z": 19.43
+          },
+         "scale": 1.0
+      },
+      {
+        "type": "furniture",
+         "id": "enchant_table_main",
+         "modelUri": "models/decor/vertical_rug.gltf",
+         "relativePosition": {
+           "x": 31.8,
+           "y": 8.75,
+           "z": 22.00
+          },
+         "lookAtPosition": {
+            "x": 30.04,
+            "y": 6.25,
+            "z": 19.43
+          },
+         "scale": 4.5
+      },
+      {
+        "type": "furniture",
+        "id": "couch_collector",
+        "modelUri": "models/decor/couch.gltf",
+        "relativePosition": {
+          "x": 35.22,
+          "y": 6.95,
+          "z": 21.00
+         },
+        "facing": {
+          "x": 39.6,
+          "y": 35,
+          "z": -9.47
+        },
+        "rotationY": 0,
+        "scale": 1.0
+      },
+      {
+        "type": "npc",
+        "id": "toolmaster_main_street",
+        "definitionId": "toolmaster",
+        "relativePosition": {
+          "x": 24.33,
+          "y": 0.10,
+          "z": 12.81
+        },
+        "facing": {
+          "x": 28.03,
+          "y": 28.79,
+          "z": -18.37
+        }
+      }
+      
+    ]
+  } 
+
+  

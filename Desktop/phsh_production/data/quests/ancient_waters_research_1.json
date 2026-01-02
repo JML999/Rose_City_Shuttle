@@ -1,0 +1,27 @@
+{
+    "id": "ancient_waters_research_1",
+    "title": "Ancient Waters Research - Stage I",
+    "description": "The Explorer believes that Shadow Scale fish are living fossils that hold secrets of ancient fishing civilizations. Catch one to help advance his research and unlock specialized archaeological equipment.",
+    "giverNpcId": "explorer",
+    "turnInNpcId": "explorer",
+    "fishingTip": "Shadow Scales are rare deep-water fish. Try fishing in deeper areas or during specific conditions.",
+    "objectives": [
+        {
+            "type": "catchFish",
+            "fishType": "Shadow Scale",
+            "count": 1
+        }
+    ],
+    "rewards": {
+        "items": [
+            {
+                "itemId": "loot_rod",
+                "count": 1
+            }
+        ]
+    },
+    "prerequisites": {
+        "level": 1,
+        "completedQuestIds": []
+    }
+} 

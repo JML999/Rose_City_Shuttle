@@ -1,0 +1,21 @@
+{
+  "id": "daily_use_10_squid_tentacle",
+  "title": "Squid Tentacle Bait",
+  "description": "Use 10 Squid Tentacle bait.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "useBaitType",
+      "baitType": "squid_tentacle",
+      "count": 10
+    }
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

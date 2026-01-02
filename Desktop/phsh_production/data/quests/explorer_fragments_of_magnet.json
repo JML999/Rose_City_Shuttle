@@ -1,0 +1,32 @@
+{
+    "id": "explorer_fragments_of_magnet",
+    "title": "Fragments of the Ancient Magnet",
+    "description": "This cartographer's map shows three ancient pools where magnetic fragments were hidden. The fragments, when assembled, create a magnet powerful enough to break the magnetic lock on the chest I found in the pyramid. Search the islands' ancient pools using a magnet to find all three fragments.",
+    "giverNpcId": "explorer",
+    "turnInNpcId": "explorer",
+    "fishingTip": "Search the islands for ancient pools like the one beneath this pyramid. Use a magnet (forge one with the Toolmaster if needed) to find the fragments hidden in treasure chests.",
+    "objectives": [
+        {
+            "type": "collectItems",
+            "itemIds": ["ancient_fragment"],
+            "count": 3,
+            "description": "Collect all 3 fragments of the ancient magnet from the ancient pools marked on the map"
+        }
+    ],
+    "rewards": {
+        "items": [
+            {
+                "itemId": "ancient_magnet",
+                "count": 1
+            }
+        ],
+        "description": "The Explorer assembles all three fragments into the complete Ancient Magnet."
+    },
+    "prerequisites": {
+        "level": 1,
+        "completedQuestIds": ["fitz_quest_3_big_grouper"]
+    },
+    "repeatable": false
+}
+
+

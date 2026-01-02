@@ -1,0 +1,23 @@
+{
+    "id": "salt_bait_crafter",
+    "name": "Ms. Dee",
+    "modelUri": "models/npcs/merchant.gltf",
+    "modelScale": 0.9,
+    "interaction": {
+        "type": "dialog",
+        "prompt": "Hello! I need help collecting rock salt. I can't climb the rocky terrain, but I need 10 rock salts to create salty mackerel bait for my job.",
+        "options": [
+            {
+                "text": "I'll help you",
+                "response": "Thank you so much! You can find rock salt by breaking rocks in rocky terrain areas."
+            },
+            {
+                "text": "Maybe later",
+                "response": "Alright, let me know if you change your mind!"
+            }
+        ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+}
+

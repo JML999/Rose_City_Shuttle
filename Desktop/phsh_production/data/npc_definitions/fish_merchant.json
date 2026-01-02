@@ -1,0 +1,15 @@
+{
+    "id": "fish_merchant",
+    "name": "Fish Merchant",
+    "modelUri": "models/npcs/merchant.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "Got any fish to sell today?",
+      "options": [
+        { "text": "Sell This", "response": "..." }, 
+        { "text": "Sell All", "response": "..." },
+        { "text": "Who are you?", "response": "I buy fish! Simple as that." }
+      ]
+    }
+  }

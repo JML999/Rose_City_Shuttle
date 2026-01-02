@@ -1,0 +1,13 @@
+{
+    "id": "artist",
+    "name": "artist",
+    "modelUri": "models/npcs/fishing_artist.gltf",
+    "modelScale": 1.0,
+    "interactAnimation": "wave",
+    "interaction": {
+      "type": "dialog", 
+      "prompt": "Done painting for the day! Wanna go fishing?",
+      "dialogOptions": [
+      ]
+    }
+  }

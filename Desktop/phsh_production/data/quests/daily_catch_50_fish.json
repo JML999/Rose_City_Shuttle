@@ -1,0 +1,20 @@
+{
+  "id": "daily_catch_50_fish",
+  "title": "Fishing Legend",
+  "description": "Catch 50 fish (total).",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "count": 50
+    }
+  ],
+  "rewards": {
+    "experience": 25
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

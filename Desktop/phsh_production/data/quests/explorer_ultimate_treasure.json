@@ -1,0 +1,31 @@
+{
+    "id": "explorer_ultimate_treasure",
+    "title": "The Ultimate Treasure: Cartographer's Vault",
+    "description": "With the complete Ancient Magnet assembled, the ultimate treasure location is revealed. Fish at the pyramid on the Big Island during sunset hours (17:00-19:59) using your Ancient Magnet. You'll need a rod with at least 300lb capacity to retrieve the legendary vault containing the cartographer's ultimate treasure.",
+    "giverNpcId": "explorer",
+    "turnInNpcId": "explorer",
+    "fishingTip": "Fish at the pyramid on the Big Island during sunset (17:00-19:59). You need a rod with at least 300lb capacity and your Ancient Magnet to retrieve the vault!",
+    "objectives": [
+        {
+            "type": "catchFish",
+            "fishType": "Ancient Cartographer's Vault",
+            "count": 1
+        }
+    ],
+    "rewards": {
+        "items": [
+            {
+                "itemId": "loot_rod",
+                "count": 1
+            }
+        ],
+        "description": "The legendary vault contains treasures beyond imagination and completes your archaeological expedition."
+    },
+    "prerequisites": {
+        "level": 1,
+        "completedQuestIds": ["explorer_solve_riddle"]
+    },
+    "repeatable": false
+}
+
+

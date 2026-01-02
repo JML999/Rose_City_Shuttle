@@ -1,0 +1,23 @@
+{
+  "id": "researcher",
+  "name": "Ancient Toolmaster",
+  "modelUri": "models/npcs/researcher.gltf",
+  "modelScale": 0.75,
+  "interaction": {
+    "type": "dialog",
+    "prompt": "I craft tools from the ancient materials found here. What do you need?",
+    "options": [
+      {
+        "text": "Open Forge",
+        "response": ""
+      },
+      {
+        "text": "Who are you?",
+        "response": "I'm the Ancient Toolmaster. I forge tools using ancient driftwood, scarab essence, and precious metals from the dig site. My craft combines the power of the ancients with modern fishing techniques!"
+      }
+    ]
+  },
+  "interactAnimation": "wave",
+  "interactAnimationLooped": false
+}
+

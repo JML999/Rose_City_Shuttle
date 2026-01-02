@@ -1,0 +1,35 @@
+{
+  "id": "forrest_anglerfish_light",
+  "title": "Light for the Stars",
+  "description": "Forrest needs an anglerfish at night to read the star altar. Catch an anglerfish, equip it, and go to the altar at night.",
+  "giverNpcId": "forrest",
+  "turnInNpcId": "forrest",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Anglerfish",
+      "count": 1,
+      "description": "Catch an anglerfish"
+    },
+    {
+      "type": "custom",
+      "id": "complete_stellar_alignment",
+      "description": "Equip the anglerfish and complete the stellar alignment at the star altar at night",
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "relic_shard",
+        "count": 1
+      }
+    ],
+    "coins": 500,
+    "experience": 200
+  },
+  "prerequisites": {},
+  "autoComplete": true,
+  "repeatable": false
+}
+

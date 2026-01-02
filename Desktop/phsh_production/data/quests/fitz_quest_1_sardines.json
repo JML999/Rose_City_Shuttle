@@ -1,0 +1,28 @@
+{
+  "id": "fitz_quest_1_sardines",
+  "title": "Fitz's Simple Job: Mackerel",
+  "description": "*hic*... Listen, I'm lookin' for someone to do some work for me - this ole peg doesn't allow me to cast like I used to. Start simple - catch me 3 Mackerel and sell them at the fishmonger in town. Make sure you're using bait when fishing. Try digging in the dirt around the dock for worms.",
+  "giverNpcId": "fitzwilliam",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Mackerel",
+      "count": 3,
+      "description": "Catch 3 Mackerel. Tip: Use bait! Try digging in the dirt around the dock for worms."
+    },
+    {
+      "type": "sellFish",
+      "fishType": "Mackerel",
+      "count": 3,
+      "description": "Sell 3 Mackerel at the Fishmonger in town."
+    }
+  ],
+  "rewards": {
+    "coins": 100
+  },
+  "prerequisites": {},
+  "repeatable": false,
+  "autoComplete": true
+}
+
+

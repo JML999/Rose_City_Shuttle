@@ -1,0 +1,22 @@
+{
+    "id": "toolmaster",
+    "name": "Toolmaster",
+    "modelUri": "models/npcs/toolmaster.gltf", 
+    "modelScale": 0.9,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "yaaaaa, whattda ya want?",
+      "options": [
+        {
+          "text": "Craft a tool",
+          "response": "" 
+        },
+        {
+          "text": "Who are you?",
+          "response": "Im the local toolmaster. Got any spare cans? Three cans smelt to iron. I forge metals for premium bait and rod creation!" 
+        }
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

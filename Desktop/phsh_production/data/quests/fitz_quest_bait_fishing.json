@@ -1,0 +1,27 @@
+{
+  "id": "fitz_quest_bait_fishing",
+  "title": "A Simple Favor",
+  "description": "Catch 5 fish using bait. Any bait will do!",
+  "giverNpcId": "fitzwilliam",
+  "turnInNpcId": "fitzwilliam",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "count": 5,
+      "description": "Catch 5 fish using any bait",
+      "usedBait": true
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "relic_shard",
+        "count": 1
+      }
+    ],
+    "experience": 100
+  },
+  "prerequisites": {},
+  "autoComplete": false,
+  "repeatable": false
+}

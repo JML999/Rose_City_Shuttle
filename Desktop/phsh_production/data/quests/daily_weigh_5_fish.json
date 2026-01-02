@@ -1,0 +1,20 @@
+{
+  "id": "daily_weigh_5_fish",
+  "title": "Fish Weigher",
+  "description": "Weigh 5 different fish.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "weighFish",
+      "count": 5
+    }
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

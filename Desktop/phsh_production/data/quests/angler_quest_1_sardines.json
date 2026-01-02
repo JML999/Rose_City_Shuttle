@@ -1,0 +1,20 @@
+{
+  "id": "angler_quest_1_sardines",
+  "title": "Angler's Task: Sardines",
+  "description": "My boss, Old Finnigan, he's after 3 Sardines. Think you could help me meet his quota?",
+  "giverNpcId": "angler",
+  "turnInNpcId": "angler",
+  "objectives": [
+    {
+      "type": "catchFish",
+      "fishType": "Sardine",
+      "count": 3,
+      "description": "Catch 3 Sardines."
+    }
+  ],
+  "rewards": {
+    "coins": 100
+  },
+  "prerequisites": {},
+  "repeatable": false
+} 

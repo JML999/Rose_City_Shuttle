@@ -1,0 +1,1013 @@
+#game-updates-panel {
+    position: fixed;
+    top: min(2vh, 20px);
+    right: min(2vh, 20px);
+    background: linear-gradient(to bottom, rgba(40, 40, 40, 0.92), rgba(25, 25, 25, 0.92));
+    border: 3px solid rgba(180, 180, 180, 0.4);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    padding: 15px;
+    width: min(30vw, 300px);
+    max-height: min(70vh, 500px);  /* Maximum height of 70% viewport or 500px */
+    overflow-y: auto;   
+    color: white;
+    opacity: 0.9;
+    font-family: 'Arial', sans-serif;
+    display: none; /* Hidden by default */
+}
+
+.update-message {
+    margin: min(0.8vh, 8px) 0;
+    padding: min(0.8vh, 8px);
+    background: rgba(30, 30, 30, 0.6);
+    border: min(0.1vh, 1px) solid rgba(200, 200, 200, 0.15);
+    border-radius: min(0.6vh, 6px);
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+} 
+
+/* =========================================
+   Progress Panel Styles
+   ========================================= */
+
+/* Level and Currency Display */
+.currency-display {
+    position: fixed;
+    bottom: 80px;  /* Position above level UI with proper spacing */
+    right: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid #555;
+    color: #FFD700;  /* Gold color for coins */
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.coin-icon {
+    font-size: 14px;
+}
+
+#level-panel {
+    position: fixed;
+    bottom: 25px;
+    right: 20px;
+    margin: 0;
+    /* Stardew Valley inspired - brown/amber gradient panel */
+    background: linear-gradient(135deg, 
+        #8b6f47 0%, 
+        #a0825d 25%,
+        #8b6f47 50%,
+        #b8956a 75%,
+        #8b6f47 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: left;
+    user-select: none;
+    -webkit-user-select: none;
+    /* Glossy border and shadow */
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 4px 12px rgba(139, 111, 71, 0.4),
+        0 2px 6px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+    /* Glossy highlight effect */
+    overflow: hidden;
+}
+
+/* Shiny highlight overlay for level panel */
+#level-panel::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.1) 30%,
+        transparent 60%
+    );
+    pointer-events: none;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%); }
+    50% { opacity: 0.7; transform: translate(-50%, -50%); }
+}
+
+#level-number {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+#xp-bar {
+    width: 100px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    margin: 5px 0 0 0;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#xp-fill {
+    width: 0%;
+    height: 100%;
+    /* Stardew Valley inspired - green gradient for XP */
+    background: linear-gradient(90deg, 
+        #4caf50 0%, 
+        #66bb6a 50%,
+        #81c784 100%);
+    transition: width 0.3s ease;
+    box-shadow: 
+        0 0 8px rgba(76, 175, 80, 0.6),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+/* Remove the XP text since we want it minimal */
+#xp-text {
+    display: none;
+}
+
+/* =========================================
+   Inventory Panel Styles
+   ========================================= */
+
+/* Inventory UI Container */
+
+/* Inventory UI */
+#toolbar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    pointer-events: auto;  /* Ensure UI elements still receive clicks */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Individual slot styling */
+.slot {
+    width: min(8vw, 100px);      
+    height: min(8vw, 100px);    
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #666;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.slot-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slot-subtitle {
+    font-size: 0.8em;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+.slot:hover {
+    border-color: #999;
+}
+
+.slot-number {
+    font-size: min(1.2vw, 12px);
+    opacity: 0.7;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.slot-name {
+    font-size: min(1.4vw, 14px);
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Equipment Menu - Main popup for inventory management */
+#equipment-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #666;
+    color: white;
+    padding: 20px;
+    width: 80vw;          /* 80% of viewport width */
+    max-width: 800px;     /* Maximum width */
+    height: 80vh;         /* 80% of viewport height */
+    max-height: 600px;    /* Maximum height */
+    display: none;
+    pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+    z-index: 101;
+}
+
+/* Menu header with title and close button */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-button {
+    cursor: pointer;
+    font-size: 24px;
+}
+
+/* Tab navigation system */
+.tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background: #333;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.tab-button.active {
+    background: #666;
+}
+
+/* Tab content containers */
+#rods-tab, #bait-tab, #fish-tab {
+    height: 400px;  /* Fixed height */
+    overflow-y: scroll;  /* Always show scrollbar */
+    padding: 10px;
+    padding-right: 15px;  /* Space for scrollbar */
+}
+
+/* Individual items in tabs */
+.rod-item, .bait-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid transparent;
+}
+
+/* Add bottom margin to the last item in each tab */
+#rods-tab::after, #bait-tab::after {
+    content: '';
+    display: block;
+    height: 200px;  /* Space after last item */
+}
+
+/* Scrollbar styling */
+#rods-tab::-webkit-scrollbar,
+#bait-tab::-webkit-scrollbar,
+#fish-tab::-webkit-scrollbar {
+    width: 8px;
+}
+
+#rods-tab::-webkit-scrollbar-track,
+#bait-tab::-webkit-scrollbar-track,
+#fish-tab::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+#rods-tab::-webkit-scrollbar-thumb,
+#bait-tab::-webkit-scrollbar-thumb,
+#fish-tab::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+/* Rod item styling */
+
+.rod-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rod-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.rod-item button {
+    margin-left: auto;  /* Pushes button to right */
+    padding: 8px 16px;  /* Add some padding to the button */
+}
+
+.equip-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.85em;
+}    
+
+/* Remove or comment out the .bait-item.selected styles */
+/* .bait-item.selected {
+    border-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+} */
+
+.bait-item.selected {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Update button styles to use .equipped instead of .selected */
+.bait-item.selected .select-bait-button {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.bait-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.bait-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.bait-quantity {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.bait-stats {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.bait-stats span {
+    margin: 2px 0;
+}
+
+#current-bait {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.select-bait-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 3px;   
+}
+
+.select-bait-button:hover {
+    background: rgba(48, 48, 48, 0.1);
+}
+
+/* Tab System */
+.inventory-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tab-button {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #666;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tab-button.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Fish Grid Styles */
+.fish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    position: relative;
+    padding-bottom: 200px;
+}
+
+#fish-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    pointer-events: none;
+}
+
+.fish-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.fish-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.fish-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.fish-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.fish-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #4a4a4a;
+    border-radius: 4px;
+    padding: 6px;
+    color: white;
+    margin-bottom: 4px;
+    min-width: 100px;
+    max-width: 150px;
+    height: fit-content;
+}
+
+.fish-card.common { border-color: #9e9e9e; }
+.fish-card.uncommon { border-color: #4CAF50; }
+.fish-card.rare { border-color: #2196F3; }
+.fish-card.epic { border-color: #9C27B0; }
+.fish-card.legendary { border-color: #FFC107; }
+
+.fish-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+    user-select: none;
+}
+
+.fish-stats {
+    font-size: 0.85em;
+    color: #ccc;
+    user-select: none;
+    line-height: 1.2;
+}
+
+.fish-value {
+    color: gold;
+    margin-top: 2px;
+    font-size: 0.85em;
+}
+
+.equip-fish-button {
+    width: 100%;
+    margin-top: 4px;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.85em;
+}
+
+.equip-fish-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.equip-fish-button:disabled {
+    background: rgba(74, 255, 74, 0.1);
+    border-color: rgba(74, 255, 74, 0.5);
+    color: rgba(74, 255, 74, 0.8);
+    cursor: default;
+}
+
+.fish-card.equipped {
+    border: 1px solid rgba(74, 255, 74, 0.5);
+    box-shadow: 0 0 5px rgba(74, 255, 74, 0.2);
+}
+
+.empty-message {
+    color: #999;
+    text-align: center;
+    padding: 20px;
+    grid-column: 1 / -1;
+}
+
+/* =========================================
+   Casting Panel Styles
+   ========================================= */
+
+/* Casting UI Container */
+
+/* Casting UI */
+#casting-power-container {
+    position: fixed;
+    left: 60%;
+    top: 50%;
+    width: 30px;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #666;
+    border-radius: 15px;
+    display: none;
+    transform: translateY(-50%);
+    pointer-events: none;
+    user-select: none;
+}
+
+#casting-power-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(to bottom, #ff4444, #ffff44);
+    border-radius: 15px;
+    transition: height 0.1s linear;
+    /* Removed scaleY(1.1) transform - it was causing the bar to overflow past 100% */
+    transform-origin: bottom;
+    
+}
+
+#cast-marker {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    left: 60%;
+    border: 3px solid #4a9eff;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: pulse 1.5s infinite;
+    z-index: 1000;
+    display: none;
+    background-color: rgba(74, 158, 255, 0.2);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* =========================================
+   Jig Panel Styles
+   ========================================= */
+
+/* Jig UI Container */
+
+/* Jig UI */
+#jigging-meter {
+    position: fixed;
+    left: 60%;
+    top: 50%;
+    width: 50px;  /* Increased from 30px to 36px (20% wider) */
+    height: 200px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #666;
+    border-radius: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* Meter sections */
+.meter-section {
+    position: absolute;
+    width: 100%;
+    height: 33.33%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.meter-section.top {
+    top: 0;
+    background: rgba(135, 206, 235, 0.3);
+}
+
+.meter-section.middle {
+    top: 33.33%;
+    background: rgba(0, 119, 190, 0.3);
+}
+
+.meter-section.bottom {
+    top: 66.66%;
+    background: rgba(0, 51, 102, 0.3);
+}
+
+#jig-indicator {
+    position: absolute;
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(to bottom, #ff4444 50%, #fff 50%);  /* Flipped colors */
+    border-radius: 50%;
+    transform: translateX(-50%);
+    transition: top 0.2s ease-out;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.fishing-instructions {
+    position: fixed;
+    left: 62%;
+    top: calc(50% + 120px);  /* Position below the jigging meter */
+    transform: translateX(-50%);
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'Inter', sans-serif;
+    font-size: min(1.8vh, 14px);
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1000;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* =========================================
+   Reel Panel Styles
+   ========================================= */
+
+/* Reel UI */
+.reel-container {
+    position: fixed;
+    left: 50%;
+    top: 70%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.reel-bar {
+    width: 300px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #666;
+    border-radius: 6px;
+    position: relative;
+}
+
+.fish-marker {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: white;
+    box-shadow: 0 0 5px white;
+}
+
+.player-zone {
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    background: rgba(0, 255, 0, 0.2);
+    border-left: 2px solid rgba(0, 255, 0, 0.8);
+    border-right: 2px solid rgba(0, 255, 0, 0.8);
+}
+
+.reel-progress {
+    width: 300px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-top: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #4AFF4A;
+    transition: width 0.1s linear;
+}
+
+.reel-instructions {
+    position: fixed;
+    left: 50%;
+    top: calc(70% + 50px);
+    transform: translateX(-50%);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: none;
+    white-space: nowrap;
+}
+
+#reeling-minigame {
+    position: fixed;
+    left: 50%;
+    bottom: 20%;
+    padding-bottom: 80px;
+    transform: translateX(-50%);
+    width: min(60vw, 600px);
+    min-width: 300px;
+}
+
+.tension-bar {
+    height: min(6vh, 40px);
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid white;
+    position: relative;
+    margin-bottom: min(3vh, 20px);
+}
+
+.target-zone {
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    transition: left 0.1s;
+}
+
+#reel-fish-marker {
+    position: absolute;
+    width: min(0.5vw, 4px);
+    height: 100%;
+    background: #ffeb3b;
+    transition: left 0.1s;
+}
+
+.progress-bar {
+    height: min(3vh, 20px);
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid white;
+    margin-bottom: min(2vh, 10px);
+}
+
+#reel-progress-fill {
+    height: 100%;
+    background: white;
+    width: 0%;
+    transition: width 0.1s;
+}
+
+.reeling-instructions {
+    position: absolute;
+    bottom: min(-6vh, -30px);
+    padding-bottom: 80px;
+    width: 100%;
+    text-align: center;
+    color: rgba(7, 7, 7, 0.5);
+    font-size: min(2.2vh, 20px);
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+/* =========================================
+   Merchant Panel Styles
+   ========================================= */
+
+/* Merchant UI Container */
+
+.merchant-dialog {
+    background: rgb(0, 0, 0);
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    width: min(40vw, 400px);  /* 40% of viewport width, max 400px */
+    max-height: min(60vh, 500px); 
+}
+
+.merchant-dialog button {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+    background: #444;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.merchant-dialog button:hover {
+    background: #555;
+}
+
+.merchant-message {
+    margin-bottom: 10px;
+}
+
+.merchant-dialog h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   Rod Shop Panel Styles
+   ========================================= */
+
+/* Rod Shop Panel Container */
+
+/* Rod Shop Panel */
+#shop-panel {
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+#shop-btn {
+    width: 200px;
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#shop-btn:hover {
+    background-color: #45a049;
+}
+
+#rod-list-panel {
+    position: absolute;
+    right: 240px;
+    top: 100px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    min-width: 300px;
+    display: none;
+}
+
+.rod-row {
+    margin: 8px 0;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rod-stats {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+.rod-price {
+    color: gold;
+    margin-top: 4px;
+}
+
+.purchase-button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.purchase-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+}
+
+.close-shop-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.close-shop-button:hover {
+    color: white;
+}
+
+.empty-shop-state {
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+#mobile-npc-options-container {
+    /* ... other styles like position, bottom, left, transform, z-index ... */
+    display: flex;
+    flex-direction: column; /* <<< THIS IS THE IMPORTANT ONE */
+    align-items: center;   /* Or stretch, depending on desired look */
+    gap: 8px;
+    /* ... Optional background, padding, border-radius ... */
+}
+
+/* Find the existing rule for .mobile-npc-option-button and modify it */
+.mobile-npc-option-button {
+    padding: 10px 15px;
+    /* --- CHANGES START HERE --- */
+    border: 1px solid #555;       /* Slightly lighter border for visibility */
+    background-color: #222;       /* Dark gray background (or use 'black') */
+    color: #f0f0f0;             /* Light text color for contrast */
+    /* --- CHANGES END HERE --- */
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    width: 200px;
+    max-width: 80vw;
+    transition: background-color 0.1s ease; /* Smooth transition for active state */
+}
+
+.mobile-npc-option-button:active {
+    /* --- ADJUST ACTIVE STATE --- */
+    background-color: #444; /* Slightly lighter dark gray when pressed */
+    /* -------------------------- */
+}

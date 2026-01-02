@@ -1,0 +1,38 @@
+{
+    "anchorCoordinate": { "x": 220, "y": 15.25, "z": -120 }, 
+    "description": "Stargazer Island Layout - Forrest's Camp",
+    "entities": [
+      {
+        "type": "entity",
+        "id": "star_altar",
+        "modelUri": "models/decor/star_altar.gltf",
+        "modelScale": 1.0,
+        "definitionId": "star_altar_block",
+        "relativePosition": { "x": 0, "y": 1.25, "z": 1 },
+        "facing": { "x": 0, "y": 0, "z": 1 }
+      },
+      {
+        "type": "npc",
+        "id": "forrest",
+        "definitionId": "forrest",
+        "relativePosition": { "x": 0, "y": 1.7, "z": -6 },
+        "facing": { "x": 220, "y": 15.25, "z": -120 },
+        "scale": 0.67
+      },
+      {
+        "type": "furniture",
+        "id": "forrest_campfire",
+        "modelUri": "models/environment/Essentials/campfire.gltf",
+        "relativePosition": { "x": -2, "y": 1, "z": -6 },
+        "scale": 1.0
+      },
+      {
+        "type": "furniture",
+        "id": "forrest_sleeping_bag",
+        "modelUri": "models/environment/Essentials/sleeping-bag-blue.gltf",
+        "relativePosition": { "x": 0, "y": 0.85, "z": -8 },
+        "scale": 1.0
+      }
+    ]
+  }
+

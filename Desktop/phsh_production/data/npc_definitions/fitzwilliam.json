@@ -1,0 +1,34 @@
+{
+    "id": "fitzwilliam",
+    "name": "Ol' Man Fitzwilliam",
+    "modelUri": "models/npcs/drunkard.gltf", 
+    "modelScale": 0.95,
+    "interaction": {
+      "type": "dialog",
+      "playerOptionText": "What did you say?",
+      "fallbackStories": [
+        {
+          "prompt": "*mumble*... biggest Blue Tang I ever saw... *hic*... near the wreck...",
+          "response": "I SAID... *hic*... some lucky fool pulled a monster Blue Tang right out from under the old shipwreck! Said it weighed nearly a kilo! Can you believe that? Shiny thing... Probably used fancy bait..."
+        },
+        {
+          "prompt": "*hic*... that Perch yesterday... slippery fella... broke my line...",
+          "response": "SLIPPERY I TELL YA! Had a Perch on the line yesterday, big as my arm! Fought like a demon, then *snap*! Gone. Took my lucky lure too... *hic*."
+        },
+        {
+           "prompt": "*snore*... zzz... giant Sardine... golden scales... zzz...",
+           "response": "Huh? Wazzat? Oh... just dreamin'. Dreamed I caught a Sardine so big it fed the whole town for a week. Heh. If only... *hic*."
+        },
+        {
+          "prompt": "*grumble*... lost my lucky hat... blew off near the cliffs...",
+          "response": "ME LUCKY HAT! *hic* Wind took it clean off my head up by the cliffs yesterday. Probably halfway across the ocean by now... Best fishin' hat I ever had."
+        },
+        {
+          "prompt": "...that ol' lighthouse... *hic*... seen better days...",
+          "response": "LIGHTHOUSE? Been standin' there longer'n I been drinkin', and that's sayin' somethin'. Needs work though. Heard strange noises from it last storm... *hic*."
+        }
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

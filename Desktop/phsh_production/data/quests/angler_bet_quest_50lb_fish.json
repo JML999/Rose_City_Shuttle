@@ -1,0 +1,31 @@
+{
+  "id": "angler_bet_quest_50lb_fish",
+  "title": "Angler's Bet: The Challenge",
+  "description": "I've heard about your success with Fitz... *grumbles* I bet you can't catch a fish bigger than 50 pounds in the next 24 hours! I'll put 50 coins on it. If you win, you get the coins. If you lose... well, you can try again. What do you say?",
+  "giverNpcId": "angler",
+  "turnInNpcId": "angler",
+  "fishingTip": "You need to catch any fish weighing at least 50 pounds within 24 hours of accepting this bet!",
+  "objectives": [
+    {
+      "type": "catchFishMinWeight",
+      "fishType": "Any",
+      "minimumWeight": 50.0,
+      "count": 1,
+      "description": "Catch any fish weighing at least 50 pounds within 24 hours."
+    }
+  ],
+  "rewards": {
+    "items": [
+      {
+        "itemId": "ancient_fragment",
+        "count": 1
+      }
+    ]
+  },
+  "prerequisites": {
+    "completedQuestIds": ["fitz_quest_3_big_grouper"]
+  },
+  "repeatable": false,
+  "timeLimit": 86400000
+}
+

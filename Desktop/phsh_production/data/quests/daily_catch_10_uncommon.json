@@ -1,0 +1,21 @@
+{
+  "id": "daily_catch_10_uncommon",
+  "title": "Uncommon Collection",
+  "description": "Catch 10 Uncommon fish.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "catchRarity",
+      "targetRarity": "uncommon",
+      "count": 10
+    }
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

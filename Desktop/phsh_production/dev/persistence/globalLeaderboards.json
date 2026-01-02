@@ -1,0 +1,54 @@
+{
+  "topXP": [
+    {
+      "playerName": "player-1",
+      "playerId": "player-1",
+      "totalXP": 1489,
+      "timestamp": 1767380141333
+    },
+    {
+      "playerName": "player-2",
+      "playerId": "player-2",
+      "totalXP": 50,
+      "timestamp": 1767380114202
+    },
+    {
+      "playerName": "player-3",
+      "playerId": "player-3",
+      "totalXP": 25,
+      "timestamp": 1767380074325
+    },
+    {
+      "playerName": "player-4",
+      "playerId": "player-4",
+      "totalXP": 10,
+      "timestamp": 1767363126615
+    },
+    {
+      "playerName": "player-5",
+      "playerId": "player-5",
+      "totalXP": 5,
+      "timestamp": 1767194196756
+    }
+  ],
+  "topEarners": [
+    {
+      "playerName": "player-1",
+      "playerId": "player-1",
+      "totalEarned": 961,
+      "timestamp": 1766778421116
+    },
+    {
+      "playerName": "player-3",
+      "playerId": "player-3",
+      "totalEarned": 293,
+      "timestamp": 1766601649220
+    },
+    {
+      "playerName": "player-2",
+      "playerId": "player-2",
+      "totalEarned": 171,
+      "timestamp": 1767380306576
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "daily_use_25_bait",
+  "title": "Bait Master",
+  "description": "Use 25 bait total (any type).",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "useBait",
+      "targetAmount": 25,
+      "count": 25
+    }
+  ],
+  "rewards": {
+    "experience": 15
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

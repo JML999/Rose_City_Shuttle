@@ -1,0 +1,22 @@
+{
+  "anchorCoordinate": { "x": -116, "y": 15.79, "z": 449.78 },
+  "description": "Ancient Dig Layout - Pyramids and excavation site",
+  "entities": [
+    {
+      "type": "npc",
+      "id": "explorer",
+      "definitionId": "explorer",
+      "relativePosition": { "x": -2, "y": 0.5, "z": 0 },
+      "facing": { "x": -118, "y": 15.79, "z": 446.78 }
+    },
+
+    {
+      "type": "npc",
+      "id": "researcher",
+      "definitionId": "researcher",
+      "relativePosition": { "x": -6.5, "y": 0.5, "z": -8.8 },
+      "facing": { "x": -116.94, "y": 15.79, "z": 441.03 }
+    }
+  ]
+}
+

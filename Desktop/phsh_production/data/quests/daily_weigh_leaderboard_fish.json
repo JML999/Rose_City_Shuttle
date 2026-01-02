@@ -1,0 +1,20 @@
+{
+  "id": "daily_weigh_leaderboard_fish",
+  "title": "Hall of Fame",
+  "description": "Weigh a fish that makes the leaderboard.",
+  "giverNpcId": "angler",
+  "objectives": [
+    {
+      "type": "weighLeaderboardFish",
+      "count": 1
+    }
+  ],
+  "rewards": {
+    "experience": 25
+  },
+  "repeatable": "daily",
+  "autoComplete": true
+}
+
+
+

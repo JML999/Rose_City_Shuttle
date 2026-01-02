@@ -1,0 +1,41 @@
+{
+  "anchorCoordinate": { "x": -100, "y": 14.79, "z": -15 },
+  "description": "Boat Dock Layout",
+  "entities": [
+    {
+      "type": "furniture",
+      "id": "dock_fishing_marker",
+      "modelUri": "models/decor/barrel.gltf",
+      "relativePosition": {
+        "x": -9,
+        "y": -4.79,
+        "z": 50
+      },
+      "scale": 1.0
+    },
+    {
+      "type": "npc",
+      "id": "fitzwilliam",
+      "definitionId": "fitzwilliam",
+      "relativePosition": { "x": 3.5, "y": 0, "z": 0.25 },
+      "facing": { "x": -99.15, "y": 14, "z": -14 },
+      "scale": 1.0
+    },
+    {
+      "type": "furniture",
+      "id": "fishing_market_stand",
+      "modelUri": "models/environment/fising_market_stand.gltf",
+      "relativePosition": { "x": 5, "y": 0.5, "z": 0 },
+      "facing": { "x": -99, "y": 14.79, "z": -15 },
+      "scale": 1.25
+    },
+    {
+      "type": "furniture",
+      "id": "fishing_market_stand",
+      "modelUri": "models/environment/fising_market_stand.gltf",
+      "relativePosition": { "x": 5, "y": 0.5, "z": -8 },
+      "facing": { "x": -99, "y": 14.79, "z": -23 },
+      "scale": 1.25
+    }
+  ]
+}

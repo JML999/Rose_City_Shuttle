@@ -1,0 +1,26 @@
+{
+    "id": "bait_master",
+    "name": "Shrimp Shack Owner",
+    "modelUri": "models/npcs/bait_master.gltf", 
+    "modelScale": 0.9,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "Welcome to the Shrimp Shack! Need some bait?",
+      "options": [
+        {
+          "text": "Buy Shrimp",
+          "response": "Let me show you my shrimp selection! Pick how many you need." 
+        },
+        {
+          "text": "Is shrimp good bait?",
+          "response": "Shrimp is the universal bait! Works great for all fish and gives you a much better chance than worms." 
+        },
+        {
+          "text": "Nevermind",
+          "response": "Come back anytime for the freshest shrimp on the island!"
+        }
+      ]
+    },
+    "interactAnimation": "wave",
+    "interactAnimationLooped": false
+  }

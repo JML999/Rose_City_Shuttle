@@ -1,0 +1,49 @@
+{
+    "anchorCoordinate": { "x": -163, "y": 17.75, "z": -192.32 }, 
+    "description": "Toolmaster's Island Layout",
+    "entities": [
+      {
+        "type": "npc",
+        "id": "toolmaster",
+        "definitionId": "toolmaster",
+        "relativePosition": {
+          "x": 3.5,
+          "y": 0.25,
+          "z": -2
+        },
+        "facing": {
+          "x": -157.16,
+          "y": 17.75,
+          "z": -192.48
+        }
+      },
+      {
+        "type": "entity",
+        "id": "forge_block",
+        "modelUri": "models/decor/forge_block.glb",
+        "modelScale": 1.25,
+        "definitionId": "forge_block",
+        "relativePosition": {
+          "x": 2.0,
+          "y": -0.1,
+          "z": 2
+        },
+        "facing": {
+          "x": -157.16,
+          "y": 15.75,
+          "z": -190.48
+        }
+      },
+      {
+        "type": "furniture",
+        "id": "anvil",
+        "modelUri": "models/decor/anvil.gltf",
+        "scale": 1.5,
+        "relativePosition": {
+          "x": 9.0,
+          "y": -0.2,
+          "z": 1.75
+        }
+      }
+    ]
+  }

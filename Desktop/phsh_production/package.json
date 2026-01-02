@@ -1,0 +1,19 @@
+{
+  "name": "hytopia-map-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "validate-catalogs": "bun scripts/validate-catalog-paths.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "hytopia": "0.14.25"
+  },
+  "optionalDependencies": {
+    "@hytopia.com/assets": "^0.4.5"
+  }
+}

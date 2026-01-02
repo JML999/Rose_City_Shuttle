@@ -1,0 +1,26 @@
+{
+    "id": "collector",
+    "name": "Weighmaster", 
+    "modelUri": "models/npcs/collector.gltf",
+    "modelScale": 1.0,
+    "interaction": {
+      "type": "dialog",
+      "prompt": "Well? Do you have a *record-breaking* catch for my collection?",
+      "options": [
+        {
+          "text": "Offer my selected fish.",
+          "response": "" 
+        },
+        {
+          "text": "What makes a fish 'record-breaking'?",
+          "response": "Size, my dear player, size! If your catch matches a top entry on the leaderboard for its species, *then* it's worthy of my attention. And perhaps a reward."
+        },
+        {
+          "text": "Just looking around.",
+          "response": "Hmph. Don't waste my time."
+        }
+      ]
+    },
+    "interactAnimation": "idle",
+    "interactAnimationLooped": true
+} 
