@@ -276,11 +276,13 @@ export class ChestManager {
         if (!this.world) return;
 
         // Get the player entity to make chest a child entity (like fish equipping)
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
-        if (!playerEntity) {
-            console.error(`[ChestManager] No player entity found for player ${player.id} for chest spawning`);
+        // CRITICAL: Use player's current world, not ChestManager's world
+        const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+        if (!playerEntities || playerEntities.length === 0) {
+            console.error(`[ChestManager] No player entity found for player ${player.id} in world ${player.world?.id || 'unknown'}`);
             return;
         }
+        const playerEntity = playerEntities[0] as GamePlayerEntity;
 
         // Determine chest model URI
         let modelUri = 'models/items/common_chest.gltf'; // Default fallback

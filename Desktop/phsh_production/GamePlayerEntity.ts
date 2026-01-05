@@ -1,4 +1,4 @@
-import { Player, PlayerEntity, Vector3, PlayerUIEvent, EntityEvent, type PlayerInput, DefaultPlayerEntity, RigidBodyType, Quaternion } from 'hytopia';
+import { Player, PlayerEntity, Vector3, PlayerUIEvent, EntityEvent, type PlayerInput, DefaultPlayerEntity, RigidBodyType, Quaternion, type Vector3Like } from 'hytopia';
 import { InventoryManager } from './Inventory/InventoryManager';
 import { PlayerStateManager } from './PlayerStateManager';
 import { TutorialArrowManager } from './TutorialArrowManager';
@@ -7,7 +7,7 @@ import { BaitBlockManager } from './Bait/BaitBlockManager';
 import type { DefaultPlayerEntityController, PlayerUI, World } from 'hytopia';
 import type { LevelingSystem } from './LevelingSystem';
 import { CurrencyManager } from './CurrencyManager';
-import mapData from './assets/terrain.json'
+// Removed: import mapData from './assets/terrain.json' - now using world.chunkLattice instead
 import type { InventoryItem } from './Inventory/Inventory';
 import { CRAFTING_RECIPES } from './Crafting/CraftingRecipes';
 import type { CraftingManager } from './Crafting/CraftingManager';
@@ -24,6 +24,7 @@ import { OreManager } from './Inventory/OreManager';
 import { BAIT_CATALOG } from './Bait/BaitCatalog';
 import { LOOT_CATALOG } from './Fishing/LootCatalog';
 import { MyPlayerController } from './MyPlayerController';
+import GameRegion from './GameRegion';
 
 
 // Define the map data type
@@ -105,6 +106,10 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
         }
         this.setupUIHandlers();
         this.on(EntityEvent.TICK, this.handleTickInput);
+        
+        // CRITICAL: Always reload UI when creating a new GamePlayerEntity (e.g., when switching regions)
+        // This ensures the UI is properly initialized in the new region
+        // The UI will send a 'uiReady' event when it's loaded, which will trigger updateAllUI
         player.ui.load("ui/index.html");
     }
     
@@ -134,6 +139,7 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
         }
 
         this.sendInventoryUIUpdate(this.player);
+        
         // Initialize breath meter
         this.currentBreath = this.maxBreath;
         this.isDrowning = false;
@@ -205,6 +211,23 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
 
     public handleBlockHit(blockId: string, hitPoint: Vector3, player: Player) {
         this.baitBlockManager.handleBlockHit(blockId, hitPoint, player);
+    }
+
+    /**
+     * Join a different region (world switching).
+     * Saves current region spawn data and switches the player to the new world.
+     */
+    public joinRegion(region: GameRegion, facingAngle: number, spawnPoint: Vector3Like): void {
+        // Save current region spawn data to state
+        this.stateManager.setCurrentRegionId(this.player, region.id);
+        this.stateManager.setCurrentRegionSpawnPoint(this.player, spawnPoint);
+        this.stateManager.setCurrentRegionSpawnFacingAngle(this.player, facingAngle);
+        
+        // CRITICAL: Flush save before switching worlds to prevent stale region data
+        this.stateManager.flushSave(this.player);
+        
+        // Switch to new world
+        this.player.joinWorld(region.world);
     }
 
     // UI Event Handling
@@ -303,8 +326,13 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
                 break;
                 
             case 'uiReady':
+                console.log(`[GamePlayerEntity] UI ready for player ${player.id} in region ${this.stateManager.getCurrentRegionId(player) || 'unknown'}`);
+                
+                // CRITICAL: Update all UI elements when UI is ready
+                // This is especially important when switching regions, as the UI is reloaded
                 const playerStateManager = this.stateManager;
                 if (playerStateManager) {
+                    console.log(`[GamePlayerEntity] Updating all UI for player ${player.id} on uiReady`);
                     playerStateManager.updateAllUI(player);
                 }
                 
@@ -399,6 +427,17 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
                         const success = (wizard as any).handleRunePurchase(player, data.runeQuantity, data.totalPrice);
                     } else {
                         console.error(`[GamePlayerEntity] Wizard NPC not found or doesn't support rune purchases`);
+                    }
+                }
+                break;
+            case 'sellSelectedFish':
+                // Handle selling selected fish from FishSellingPanel
+                if (data.fishIds && Array.isArray(data.fishIds)) {
+                    const fishmonger = this.npcManager.getNpcById('fishmonger');
+                    if (fishmonger && typeof (fishmonger as any).handleSellSelectedFish === 'function') {
+                        (fishmonger as any).handleSellSelectedFish(player, data.fishIds);
+                    } else {
+                        console.error(`[GamePlayerEntity] Fishmonger NPC not found or doesn't support selling selected fish`);
                     }
                 }
                 break;
@@ -587,7 +626,7 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
             playerEntity.position.z
         );
 
-        (`[GamePlayerEntity] Delegating ore opening to OreManager at position:`, position);
+        console.log(`[GamePlayerEntity] Delegating ore opening to OreManager at position:`, position);
 
         // Delegate to OreManager for all ore opening logic
         this.oreManager.openOreVisually(player, oreId, position);
@@ -989,7 +1028,8 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
         const blockAtPosition = world.chunkLattice.getBlockId({ x, y, z });
         if (blockAtPosition !== undefined && blockAtPosition !== 0) {
             // Check if it's a solid block (not air, not water)
-            const waterBlockIds = [50, 77, 78, 150];
+            // Support multiple water block IDs from different worlds
+            const waterBlockIds = [10, 50, 73, 74, 77, 78, 150];
             if (!waterBlockIds.includes(blockAtPosition)) {
                 return false; // Solid block, can't spawn here
             }
@@ -1001,7 +1041,7 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
             const blockBelow = world.chunkLattice.getBlockId({ x, y: checkY, z });
             if (blockBelow !== undefined && blockBelow !== 0) {
                 // Check if it's a solid block (not air, not water)
-                const waterBlockIds = [50, 77, 78, 150];
+                const waterBlockIds = [10, 50, 73, 74, 77, 78, 150];
                 if (!waterBlockIds.includes(blockBelow)) {
                     hasGround = true;
                     break;
@@ -1016,8 +1056,9 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
         // Check if there's air/space above (at least 2 blocks clearance)
         const blockAbove1 = world.chunkLattice.getBlockId({ x, y: y + 1, z });
         const blockAbove2 = world.chunkLattice.getBlockId({ x, y: y + 2, z });
-        if ((blockAbove1 !== undefined && blockAbove1 !== 0 && ![50, 77, 78, 150].includes(blockAbove1)) ||
-            (blockAbove2 !== undefined && blockAbove2 !== 0 && ![50, 77, 78, 150].includes(blockAbove2))) {
+        const waterBlockIds = [10, 50, 73, 74, 77, 78, 150];
+        if ((blockAbove1 !== undefined && blockAbove1 !== 0 && !waterBlockIds.includes(blockAbove1)) ||
+            (blockAbove2 !== undefined && blockAbove2 !== 0 && !waterBlockIds.includes(blockAbove2))) {
             return false; // Not enough headroom
         }
         
@@ -1033,26 +1074,84 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
         // Reset death flag
         this.isDead = false;
         
-        // Find a valid spawn point (use this.world since entity is already spawned)
-        let spawnPosition = this.findValidSpawnPoint(this.world as World);
-        if (!spawnPosition) {
-            console.error("[RESPAWN] Failed to find valid spawn point, using default");
-            spawnPosition = { x: -109, y: 14, z: 35 };
+        // Get current region spawn point from state (like initial spawn does)
+        const currentRegionId = this.stateManager.getCurrentRegionId(this.player);
+        const savedSpawnPoint = this.stateManager.getCurrentRegionSpawnPoint(this.player);
+        const savedFacingAngle = this.stateManager.getCurrentRegionSpawnFacingAngle(this.player);
+        
+        // Get region to get default spawn point if no saved one
+        let spawnPosition: Vector3Like | undefined;
+        let facingAngle: number | undefined;
+        
+        if (savedSpawnPoint) {
+            // Validate saved spawn point - ignore old default (0, 10, 0) for cave region
+            const isOldDefault = currentRegionId === 'ancient-cave-1' && 
+                                 savedSpawnPoint.x === 0 && 
+                                 savedSpawnPoint.y === 10 && 
+                                 savedSpawnPoint.z === 0;
+            
+            if (isOldDefault) {
+                console.log(`[RESPAWN] Ignoring old default spawn point (0, 10, 0), using region default`);
+                // Clear the old saved spawn point
+                this.stateManager.setCurrentRegionSpawnPoint(this.player, undefined);
+                this.stateManager.setCurrentRegionSpawnFacingAngle(this.player, undefined);
+                // Will fall through to use region default
+            } else {
+                // Use saved spawn point if it's valid
+                spawnPosition = savedSpawnPoint;
+                facingAngle = savedFacingAngle ?? 0;
+                console.log(`[RESPAWN] Using saved spawn point: (${spawnPosition.x}, ${spawnPosition.y}, ${spawnPosition.z})`);
+            }
         }
         
-        // Fitz NPC position (moved from inn to central square, replacing welcome_npc)
-        // Position: anchor (-46, 26, -15.4) + relativePosition (-43.5, -9.24, 51.87) = (-89.5, 16.76, 36.47)
-        const fitzPos = { x: -89.5, y: 16.76, z: 36.47 };
+        // If we don't have a valid saved spawn point, use region default
+        if (!spawnPosition) {
+            if (currentRegionId) {
+                // Get region's default spawn point
+                const region = GameManager.instance.getRegion(currentRegionId);
+                if (region) {
+                    spawnPosition = region.spawnPoint;
+                    facingAngle = region.spawnFacingAngle;
+                    console.log(`[RESPAWN] Using region default spawn point: (${spawnPosition.x}, ${spawnPosition.y}, ${spawnPosition.z}) for region ${currentRegionId}`);
+                } else {
+                    // Region not found - try findValidSpawnPoint for main world, otherwise use hardcoded
+                    console.warn(`[RESPAWN] Region ${currentRegionId} not found, falling back to main world spawn logic`);
+                    const validSpawn = this.findValidSpawnPoint(this.world as World);
+                    spawnPosition = validSpawn ?? { x: -109, y: 14, z: 35 };
+                    facingAngle = 0;
+                }
+            } else {
+                // No region info - use main world logic
+                console.warn(`[RESPAWN] No region ID found, using main world spawn logic`);
+                const validSpawn = this.findValidSpawnPoint(this.world as World);
+                spawnPosition = validSpawn ?? { x: -109, y: 14, z: 35 };
+                facingAngle = 0;
+            }
+        }
         
-        // Calculate facing angle towards Fitz NPC
-        const dx = fitzPos.x - spawnPosition.x;
-        const dz = fitzPos.z - spawnPosition.z;
-        const facingAngle = Math.atan2(dx, dz) * (180 / Math.PI);
+        // Ensure we have valid values (TypeScript safety)
+        if (!spawnPosition) {
+            console.error(`[RESPAWN] Failed to determine spawn position, using emergency fallback`);
+            spawnPosition = { x: -109, y: 14, z: 35 };
+            facingAngle = 0;
+        }
+        if (facingAngle === undefined) {
+            facingAngle = 0;
+        }
         
-        // Just move the entity to spawn position (like Frontiers does)
+        // For main world, calculate facing towards Fitz
+        let lookAtPos: Vector3Like | undefined;
+        if (currentRegionId === 'big-island') {
+            lookAtPos = { x: -89.5, y: 16.76, z: 36.47 }; // Fitz/Greeter position
+            const dx = lookAtPos.x - spawnPosition.x;
+            const dz = lookAtPos.z - spawnPosition.z;
+            facingAngle = Math.atan2(dx, dz) * (180 / Math.PI);
+        }
+        
+        // Move entity to spawn position
         this.setPosition(spawnPosition);
         
-        // Set facing direction towards Fitz NPC
+        // Set facing direction
         const quaternion = Quaternion.fromEuler(0, facingAngle, 0);
         this.setRotation(quaternion);
         
@@ -1075,8 +1174,18 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
             percentage: 100
         });
         
-        // Reset camera to look at greeter NPC (same position as Fitz)
-        this.player.camera.lookAtPosition(fitzPos);
+        // Set camera look position
+        if (lookAtPos) {
+            this.player.camera.lookAtPosition(lookAtPos);
+        } else {
+            // For other regions, look in facing direction
+            const facingAngleRad = facingAngle * Math.PI / 180;
+            this.player.camera.lookAtPosition({
+                x: spawnPosition.x - Math.sin(facingAngleRad),
+                y: spawnPosition.y,
+                z: spawnPosition.z - Math.cos(facingAngleRad),
+            });
+        }
         
         // Reset animations
         try {
@@ -1096,6 +1205,7 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
             type: 'enablePlayerInput'
         });
         
+        console.log(`[RESPAWN] Player respawned at (${spawnPosition.x}, ${spawnPosition.y}, ${spawnPosition.z}) in region ${currentRegionId || 'unknown'}`);
     }
 
     public updateLastInputState(input: InputState) {
@@ -1136,15 +1246,23 @@ export class GamePlayerEntity extends DefaultPlayerEntity {
     }
 
     public isWaterBlock(position: { x: number, y: number, z: number }): boolean {
+        // CRITICAL: Use player's current world, not static mapData
+        // This allows water detection to work in different regions with different water block IDs
+        if (!this.world) return false;
+        
         const x = Math.floor(position.x);
         const y = Math.floor(position.y);
         const z = Math.floor(position.z);
-        const blockKey = `${x},${y},${z}`;
-        // Use mapData from the terrain file
-        // @ts-ignore
-        const typedMapData = mapData as any;
-        const blockTypeId = typedMapData.blocks?.[blockKey];
-        return blockTypeId === 77 || blockTypeId === 78 || blockTypeId === 150;
+        
+        // Get block ID from the current world's chunkLattice
+        const blockTypeId = this.world.chunkLattice.getBlockId({ x, y, z });
+        
+        // Support multiple water block IDs from different worlds:
+        // Main world: 77, 78, 150, 50
+        // Cave world: 10
+        // Other worlds may have different IDs (73, 74 for water-flow/water-still)
+        const waterBlockIds = [10, 50, 73, 74, 77, 78, 150];
+        return waterBlockIds.includes(blockTypeId ?? 0);
     }
     
     public checkWaterZone(): boolean {

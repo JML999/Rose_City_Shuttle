@@ -83,8 +83,10 @@ class BoatEntity extends Entity {
         
         console.log(`[BoatEntity] findWaterBelow: Searching for water at position (${position.x}, ${position.y}, ${position.z}), checking coords (${xFloor}/${xRound}, ${zFloor}/${zRound}), starting from Y=${startY}`);
         
-        // Water block ID from map.json: 74 = water
-        const WATER_BLOCK_ID = 74;
+        // Support multiple water block IDs from different worlds:
+        // Main world: 74, 77, 78, 150, 50, 73
+        // Cave world: 10
+        const WATER_BLOCK_IDS = [10, 50, 73, 74, 77, 78, 150];
         
         // Check multiple coordinate combinations (floor and round for both X and Z)
         const checkCoords = [
@@ -99,7 +101,7 @@ class BoatEntity extends Entity {
             for (let y = startY + 5; y >= Math.max(0, startY - 20); y--) {
                 const blockType = this.world.chunkLattice.getBlockId({ x: coord.x, y, z: coord.z });
                 console.log(`[BoatEntity] Checking block at ${coord.x}, ${y}, ${coord.z}: blockType=${blockType}`);
-                if (blockType === WATER_BLOCK_ID) {
+                if (WATER_BLOCK_IDS.includes(blockType ?? 0)) {
                     console.log(`[BoatEntity] Found water at Y=${y} (position ${coord.x}, ${coord.z})`);
                     return y;
                 }
@@ -119,7 +121,7 @@ class BoatEntity extends Entity {
             const checkZ = zFloor + offset.z;
             for (let y = startY + 5; y >= Math.max(0, startY - 20); y--) {
                 const blockType = this.world.chunkLattice.getBlockId({ x: checkX, y, z: checkZ });
-                if (blockType === WATER_BLOCK_ID) {
+                if (WATER_BLOCK_IDS.includes(blockType ?? 0)) {
                     console.log(`[BoatEntity] Found water at Y=${y} (nearby position ${checkX}, ${checkZ})`);
                     return y;
                 }

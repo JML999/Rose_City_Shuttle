@@ -1,16 +1,18 @@
-import { Vector3, Audio, ColliderShape, CoefficientCombineRule, CollisionGroup, DefaultPlayerEntityController, DefaultPlayerEntity } from "hytopia";
-import type { PlayerEntity, PlayerInput, PlayerCameraOrientation, Entity, World, BlockType } from "hytopia";
+import { Vector3, Audio, ColliderShape, CoefficientCombineRule, CollisionGroup, DefaultPlayerEntityController, DefaultPlayerEntity, EntityEvent } from "hytopia";
+import type { PlayerEntity, PlayerInput, PlayerCameraOrientation, Entity, World, BlockType, Player } from "hytopia";
 import { GamePlayerEntity } from "./GamePlayerEntity";
 import * as math from './Utils/math';
 import type { PlayerState, PlayerStateManager } from "./PlayerStateManager";
 import { TerrainDamageManager } from "./Bait/TerrainDamageManager";
 import BoatEntity from "./Inventory/BoatEntity";
 
-const WATER_BLOCK_ID_PRIMARY = 77; // Assuming 77 is a water block ID
-const WATER_BLOCK_ID_SECONDARY = 78; // Assuming 78 is another water block ID
+// Support multiple water block IDs from different worlds:
+// Main world: 77, 78, 150, 50, 73, 74
+// Cave world: 10
+const WATER_BLOCK_IDS = [10, 50, 73, 74, 77, 78, 150];
 
 export class MyPlayerController extends DefaultPlayerEntityController {
-    private world: World;
+    // REMOVED: private world: World; - Use entity.world instead to support world switching
     private lastBreathUpdate = 0;
     private lastBreathPercentage = 100;
     private BREATH_UPDATE_INTERVAL = 100; // Update UI every 100ms for smoother updates
@@ -19,10 +21,38 @@ export class MyPlayerController extends DefaultPlayerEntityController {
     private readonly MIN_SWIM_Y_LEVEL = 12;
     private lastNormalDebugLog = 0; // Throttle normal debug logging
     private readonly NORMAL_DEBUG_LOG_INTERVAL = 500; // Log every 500ms
+    private lastSwimmingDebugLog = 0; // Throttle swimming debug logging
+    private readonly SWIMMING_DEBUG_LOG_INTERVAL = 1000; // Log every 1 second
+    
+    /**
+     * Get the swim Y level thresholds based on the current region.
+     * Main world water level is around Y=11, cave world is 6 blocks lower (Y=5).
+     */
+    private getSwimYLevel(player: Player): { minMoveSwimY: number, minSwimY: number } {
+        const regionId = this.stateManager.getCurrentRegionId(player);
+        
+        // Main world water level is around Y=11
+        // Cave world (portal_1) water level is 6 blocks lower = Y=5
+        const BASE_SWIM_Y = 11;
+        const CAVE_Y_OFFSET = -6; // 6 blocks lower
+        
+        if (regionId === 'ancient-cave-1') {
+            return {
+                minMoveSwimY: BASE_SWIM_Y + CAVE_Y_OFFSET + 0.25, // 5.25
+                minSwimY: BASE_SWIM_Y + CAVE_Y_OFFSET // 5
+            };
+        }
+        
+        // Default to main world values
+        return {
+            minMoveSwimY: BASE_SWIM_Y + 0.25, // 11.25
+            minSwimY: BASE_SWIM_Y // 11
+        };
+    }
 
     constructor(world: World, stateManager: PlayerStateManager) {
         super();
-        this.world = world;
+        // NOTE: We don't store world here - use entity.world in methods to support world switching
         this.stateManager = stateManager;
         this.swimGravity = this.SINKING_SWIM_GRAVITY; // Allow player to sink initially
         this.swimFastVelocity = this.swimSlowVelocity;
@@ -227,6 +257,15 @@ export class MyPlayerController extends DefaultPlayerEntityController {
             const fallbackIsInWater = playerEntity.checkWaterZone();
             const isInWater = sdkIsSwimming || fallbackIsInWater;
             
+            // Debug logging for swimming detection (throttled)
+            const now = Date.now();
+            if (now - this.lastSwimmingDebugLog > this.SWIMMING_DEBUG_LOG_INTERVAL) {
+                if (isInWater || sdkIsSwimming || fallbackIsInWater) {
+                    console.log(`[MyPlayerController] Swimming state - SDK: ${sdkIsSwimming}, Fallback: ${fallbackIsInWater}, Combined: ${isInWater}, World: ${entity.world?.id || 'unknown'}`);
+                }
+                this.lastSwimmingDebugLog = now;
+            }
+            
             // Check if player just jumped while in water (penalty for jumping in water)
             const wasJumping = lastInputState?.sp;
             const isJumping = playerEntity.player.input.sp;
@@ -264,8 +303,10 @@ export class MyPlayerController extends DefaultPlayerEntityController {
         
         // Skip underwater physics if player is boating or transitioning to boat
         if (!playerEntity.isBoating) {
-            const MIN_MOVE_SWIM_Y = 11.25;
-            if (this.isSwimming && entity.position.y < MIN_MOVE_SWIM_Y) {
+            // Get region-specific swim Y levels (main world: 11/11.25, cave: 5/5.25)
+            const swimYLevels = this.getSwimYLevel(playerEntity.player);
+            
+            if (this.isSwimming && entity.position.y < swimYLevels.minMoveSwimY) {
                 const input = playerEntity.player.input;
                 const isMoving = input.w || input.a || input.s || input.d;
                 const isSwimmingUp = entity.linearVelocity.y > 0.5; // SDK swim up
@@ -286,8 +327,7 @@ export class MyPlayerController extends DefaultPlayerEntityController {
                 }
             }
 
-            const MIN_SWIM_Y = 11;
-            if (this.isSwimming && entity.position.y < MIN_SWIM_Y) {
+            if (this.isSwimming && entity.position.y < swimYLevels.minSwimY) {
                 const input = playerEntity.player.input;
                 const isMoving = input.w || input.a || input.s || input.d;
                 const isSwimmingUp = entity.linearVelocity.y > 0.5; // SDK swim up
@@ -314,12 +354,19 @@ export class MyPlayerController extends DefaultPlayerEntityController {
         const p0 = Date.now();
         const aimResult = this.calculateAimDirection(playerEntity, 3.0);
         const p1 = Date.now();
-        if (!aimResult) {
+        if (!aimResult || typeof aimResult === 'object' && !('origin' in aimResult)) {
             return;
         }
 
+        // CRITICAL: Use entity's current world, not stored world (supports world switching)
+        const entityWorld = playerEntity.world;
+        if (!entityWorld) {
+            console.warn("[MyPlayerController] Cannot interact - entity has no world");
+            return;
+        }
+        
         const p2 = Date.now();
-        const raycastResult = this.world.simulation.raycast(
+        const raycastResult = entityWorld.simulation.raycast(
             aimResult.origin,
             aimResult.direction,
             3.0,
@@ -337,7 +384,7 @@ export class MyPlayerController extends DefaultPlayerEntityController {
         if (raycastResult?.hitBlock) {
             const p4 = Date.now();
             const broken = this.terrainDamager.damageBlock(
-                this.world,
+                entityWorld,
                 raycastResult.hitBlock,
                 10,
                 playerEntity.player
@@ -500,8 +547,16 @@ export class MyPlayerController extends DefaultPlayerEntityController {
         origin.x += rightVector.x * originOffset;
         origin.z += rightVector.z * originOffset;
 
+        // CRITICAL: Use entity's current world, not stored world (supports world switching)
+        const entityWorld = entity.world;
+        if (!entityWorld) {
+            console.warn("[MyPlayerController] Cannot raycast - entity has no world");
+            return new Vector3(raycastPos.x, raycastPos.y, raycastPos.z)
+                .add(new Vector3(finalDirection.x, finalDirection.y, finalDirection.z).scale(maxDistance));
+        }
+        
         // Raycast from offset camera position
-        const raycastResult = this.world?.simulation.raycast(
+        const raycastResult = entityWorld.simulation.raycast(
             raycastPos,
             finalDirection,
             maxDistance,

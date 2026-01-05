@@ -223,11 +223,13 @@ export class OreManager {
         if (!this.world) return;
 
         // Get the player entity to make loot a child entity (like fish equipping)
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
-        if (!playerEntity) {
-            console.error(`[OreManager] No player entity found for player ${player.id} for ore spawning`);
+        // CRITICAL: Use player's current world, not OreManager's world
+        const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+        if (!playerEntities || playerEntities.length === 0) {
+            console.error(`[OreManager] No player entity found for player ${player.id} in world ${player.world?.id || 'unknown'}`);
             return;
         }
+        const playerEntity = playerEntities[0] as GamePlayerEntity;
 
         // Spawn the loot item immediately (no ore opening animation)
         if (lootItem) {

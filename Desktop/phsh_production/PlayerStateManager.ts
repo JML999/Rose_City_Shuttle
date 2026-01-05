@@ -1,4 +1,4 @@
-import { Entity, Player, World } from 'hytopia';
+import { Entity, Player, World, Vector3Like } from 'hytopia';
 import { InventoryManager } from './Inventory/InventoryManager';
 import { LevelingSystem } from './LevelingSystem';
 import type { FishingState } from './Fishing/FishingMiniGame';
@@ -80,6 +80,11 @@ export type PlayerState = {
     
     // Inventory - moved from InventoryManager to PlayerState for single source of truth
     inventory: PlayerInventory;
+    
+    // Region tracking for world switching
+    currentRegionId?: string;
+    currentRegionSpawnPoint?: Vector3Like;
+    currentRegionSpawnFacingAngle?: number;
 };
 
 // Daily statistics interface for tracking daily quest progress
@@ -216,6 +221,58 @@ export class PlayerStateManager {
         return this.messageManager;
     }
     // --- End Getters ---
+
+    // --- Region Tracking Getters ---
+    public getCurrentRegionId(player: Player): string | undefined {
+        return this.getState(player)?.currentRegionId;
+    }
+
+    public getCurrentRegionSpawnPoint(player: Player): Vector3Like | undefined {
+        return this.getState(player)?.currentRegionSpawnPoint;
+    }
+
+    public getCurrentRegionSpawnFacingAngle(player: Player): number | undefined {
+        return this.getState(player)?.currentRegionSpawnFacingAngle;
+    }
+
+    // --- Region Tracking Setters ---
+    public setCurrentRegionId(player: Player, regionId: string): void {
+        const state = this.getState(player);
+        if (state) {
+            state.currentRegionId = regionId;
+        }
+    }
+
+    public setCurrentRegionSpawnPoint(player: Player, point: Vector3Like | undefined): void {
+        const state = this.getState(player);
+        if (state) {
+            state.currentRegionSpawnPoint = point;
+        }
+    }
+
+    public setCurrentRegionSpawnFacingAngle(player: Player, angle: number | undefined): void {
+        const state = this.getState(player);
+        if (state) {
+            state.currentRegionSpawnFacingAngle = angle;
+        }
+    }
+
+    /**
+     * Immediately persists player state, bypassing the debounce used by save().
+     * 
+     * This is critical before operations that might recreate the player state
+     * (e.g. switching worlds/regions) to prevent stale region spawn data.
+     */
+    public flushSave(player: Player): void {
+        // Clear any pending save timeout
+        const existingTimeout = this._saveTimeouts.get(player.id);
+        if (existingTimeout) {
+            clearTimeout(existingTimeout);
+            this._saveTimeouts.delete(player.id);
+        }
+        // Immediately save
+        this.save(player);
+    }
 
     // Made synchronous like Frontiers - load() method is synchronous
     initializePlayer(player: Player): void {
@@ -472,6 +529,17 @@ export class PlayerStateManager {
             } catch (e) {
                 console.error("[APPLY] Failed to restore currency:", e);
             }
+        }
+        
+        // Apply region data for world switching
+        if (data.currentRegionId !== undefined) {
+            state.currentRegionId = data.currentRegionId;
+        }
+        if (data.currentRegionSpawnPoint !== undefined) {
+            state.currentRegionSpawnPoint = data.currentRegionSpawnPoint;
+        }
+        if (data.currentRegionSpawnFacingAngle !== undefined) {
+            state.currentRegionSpawnFacingAngle = data.currentRegionSpawnFacingAngle;
         }
         
         // Apply quest data
@@ -1205,7 +1273,11 @@ export class PlayerStateManager {
                 dailyQuestPool: state.dailyQuestPool ? [...state.dailyQuestPool] : undefined,
                 dailyQuestPoolDate: state.dailyQuestPoolDate,
                 dailyQuestNotificationSentDate: state.dailyQuestNotificationSentDate,
-                lastLoginDate: state.lastLoginDate
+                lastLoginDate: state.lastLoginDate,
+                // Region data for world switching
+                currentRegionId: state.currentRegionId,
+                currentRegionSpawnPoint: state.currentRegionSpawnPoint,
+                currentRegionSpawnFacingAngle: state.currentRegionSpawnFacingAngle
             };
             
             // SAFETY CHECK: Validate quest data before saving
@@ -1761,6 +1833,30 @@ export class PlayerStateManager {
                 if (baitItem) {
                     return baitItem;
                 }
+            }
+            
+            // Check if it's a boat (boats are not in catalogs, they're created manually)
+            // Boats are identified by either the itemId 'basic_boat' or by having boatStats metadata
+            if (itemId === 'basic_boat' || metadata.boatStats) {
+                // Reconstruct boat from saved data
+                return {
+                    id: itemId,
+                    modelId: 'boat',
+                    sprite: 'boat_sprite.png',
+                    name: 'Fishing Boat',
+                    type: 'boat',
+                    rarity: 'common',
+                    value: 250, // Default boat cost
+                    quantity,
+                    metadata: {
+                        boatStats: metadata.boatStats || {
+                            key: Math.random().toString(36).substring(2, 10),
+                            health: 100,
+                            speed: 8,
+                            turnSpeed: 2.5
+                        }
+                    }
+                };
             }
             
             // Check if it's in ITEM_CATALOG (crafted items, etc.)

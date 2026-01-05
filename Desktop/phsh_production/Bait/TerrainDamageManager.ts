@@ -365,8 +365,13 @@ export class TerrainDamageManager {
     private displayLootPopup(player: any, lootType: string, blockPosition: Vector3Like): void {
         if (!this.world) return;
         
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0];
-        if (!playerEntity) return;
+        // CRITICAL: Use player's current world, not TerrainDamageManager's world
+        const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+        if (!playerEntities || playerEntities.length === 0) {
+            console.error(`[TerrainDamageManager] No player entity found for player ${player.id} in world ${player.world?.id || 'unknown'}`);
+            return;
+        }
+        const playerEntity = playerEntities[0];
         
         let modelUri = 'models/items/generic_item.gltf';
         let modelScale = 1;

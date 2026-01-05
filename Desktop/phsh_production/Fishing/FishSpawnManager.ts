@@ -61,16 +61,36 @@ export class FishSpawnManager {
         // Ensure FishLootManager instance is created and available
         this.lootManager = new FishLootManager(world, playerStateManager);
         this.hotspotRarityConfig = DEFAULT_HOTSPOT_RARITY_CONFIG;
+    }
+    
+    /**
+     * Helper method to get player entity from the player's current world.
+     * CRITICAL: When switching regions, players are in different worlds, so we must use player.world
+     * instead of this.world (which is the world FishSpawnManager was initialized with).
+     */
+    private getPlayerEntity(player: Player): GamePlayerEntity | undefined {
+        const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+        if (!playerEntities || playerEntities.length === 0) {
+            console.error(`[FishSpawnManager] No player entity found for ${player.id} in world ${player.world?.id || 'unknown'}`);
+            return undefined;
+        }
+        return playerEntities[0] as GamePlayerEntity;
         
         // Periodic zone logging for testing (every 5 seconds)
+        // NOTE: This only logs players in the world FishSpawnManager was initialized with
+        // For multi-region support, this would need to iterate through all regions
         setInterval(() => {
             // Log zone for all players currently in the world
             if (this.world && this.world.players && Array.isArray(this.world.players)) {
                 this.world.players.forEach(player => {
-                    const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
-                    if (playerEntity && playerEntity.position) {
-                        const zoneName = this.getCurrentZoneName(playerEntity.position);
-                        console.log(`[Zone Debug] Player ${player.username || player.id} is in zone: ${zoneName}`);
+                    // CRITICAL: Use player's current world, not FishSpawnManager's world
+                    const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+                    if (playerEntities && playerEntities.length > 0) {
+                        const playerEntity = playerEntities[0] as GamePlayerEntity;
+                        if (playerEntity && playerEntity.position) {
+                            const zoneName = this.getCurrentZoneName(playerEntity.position);
+                            console.log(`[Zone Debug] Player ${player.username || player.id} is in zone: ${zoneName}`);
+                        }
                     }
                 });
             }
@@ -97,7 +117,8 @@ export class FishSpawnManager {
 
     public getFishAtLocation(position: Vector3, time: number, player: Player): CaughtFish | null {
         const currentPlayerLevel = this.playerStateManager.getCurrentLevel(player);
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return null;
         const equippedBaitBeforeRoll = playerEntity.getEquippedBait(player)?.item;
         const locationTags = this.getTagsAtPosition(position);
 
@@ -613,7 +634,8 @@ export class FishSpawnManager {
     }
 
     private getEligibleFishAndLoot(locationTags: LocationTags, player: Player, fishingPosition: Vector3): FishData[] {
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return [];
         const equippedRod = playerEntity.getEquippedRod(player);
         const rodId = equippedRod?.id || '' as RodType;
         const currentGameHour = GameClock.instance.hour;
@@ -689,7 +711,8 @@ export class FishSpawnManager {
     private rollForFish(locationTags: LocationTags, time: number, player: Player, fishingPosition: Vector3, state?: any): FishData | null {
         console.log('\n=== FISHING PROBABILITY CALCULATION ===');
         
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return [];
         const equippedBaitItem = playerEntity.getEquippedBait(player)?.item;
         const currentPlayerLevel = this.playerStateManager.getCurrentLevel(player);
         const baitName = equippedBaitItem?.name || 'None';
@@ -1155,7 +1178,8 @@ export class FishSpawnManager {
         // However, the current flow in getFishAtLocation prevents this by handling isLoot first.
         
         const weight = this.generateWeight(fishData.minWeight, fishData.maxWeight);
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return null;
         const equippedRod = playerEntity.getEquippedRod(player);
         // Apply enchantment bonuses to maxCatchWeight (Giant's Pull, Weighted Fortune, Anchored Zone)
         const modifiedStats = EnchantmentHelper.getEnchantmentModifiedStats(equippedRod);
@@ -1222,7 +1246,8 @@ export class FishSpawnManager {
             return null;
         }
 
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return null;
         const equippedBaitItem = playerEntity.getEquippedBait(player)?.item;
         const state = this.playerStateManager.getState(player);
 
@@ -1531,7 +1556,8 @@ export class FishSpawnManager {
         console.log('🧲 MAGNET TREASURE HUNTER MODE - CONSERVATIVE CHEST SYSTEM');
         console.log('📊 CALCULATING MAGNET CHEST PROBABILITIES:');
         
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return 0;
         const equippedRod = playerEntity.getEquippedRod(player);
         const modifiedRodStats = EnchantmentHelper.getEnchantmentModifiedStats(equippedRod);
         const rodLootScore = modifiedRodStats.lootScore;
@@ -1615,8 +1641,8 @@ export class FishSpawnManager {
             'common_chest': {
                 name: 'Treasure Chest',
                 baseValue: 100,
-                minWeight: 50,
-                maxWeight: 100,
+                minWeight: 550,
+                maxWeight: 650,
                 rarity: 'uncommon' as const
             },
             'rare_chest': {
@@ -1713,7 +1739,8 @@ export class FishSpawnManager {
 
         // Check if player has the required bait equipped
         if (fish.spawnData.requiredBait) {
-            const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+            const playerEntity = this.getPlayerEntity(player);
+            if (!playerEntity) return false;
             const equippedBait = playerEntity.getEquippedBait(player)?.item;
             
             if (!equippedBait || equippedBait.id !== fish.spawnData.requiredBait) {

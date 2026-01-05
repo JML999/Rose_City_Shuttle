@@ -49,6 +49,20 @@ export class FishLootManager {
     private world: World;
     private playerStateManager: PlayerStateManager;
     
+    /**
+     * Helper method to get player entity from the player's current world.
+     * CRITICAL: When switching regions, players are in different worlds, so we must use player.world
+     * instead of this.world (which is the world FishLootManager was initialized with).
+     */
+    private getPlayerEntity(player: Player): GamePlayerEntity | undefined {
+        const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+        if (!playerEntities || playerEntities.length === 0) {
+            console.error(`[FishLootManager] No player entity found for ${player.id} in world ${player.world?.id || 'unknown'}`);
+            return undefined;
+        }
+        return playerEntities[0] as GamePlayerEntity;
+    }
+    
     constructor(world: World, playerStateManager: PlayerStateManager) {
         this.world = world;
         this.playerStateManager = playerStateManager;
@@ -126,7 +140,8 @@ export class FishLootManager {
         const fishingLoot = LOOT_CATALOG.filter(l => l.sources && l.sources.includes('fishing'));
         
         // Check rod weight limits - filter out items that are too heavy for the equipped rod
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return [];
         const equippedRod = playerEntity.getEquippedRod(player);
         const rodMaxWeight = equippedRod?.metadata?.rodStats?.maxCatchWeight || 250; // Default if no rod
         
@@ -357,7 +372,8 @@ export class FishLootManager {
             return;
         }
     
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         
         let inventoryItem = ItemFactory.createInventoryItemFromLootId(loot.id, loot.quantity);
         
@@ -385,7 +401,8 @@ export class FishLootManager {
      * @param loot The loot item to display
      */
     public displayLoot(player: Player, loot: LootItem): void {
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         
         // Remove existing display items
         const existingDisplays = this.world.entityManager.getAllEntities().filter(

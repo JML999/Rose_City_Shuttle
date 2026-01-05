@@ -273,8 +273,10 @@ export default class BoatEntityController extends BaseEntityController {
         const zRound = Math.round(position.z);
         const startY = Math.floor(position.y);
         
-        // Water block ID from map.json: 74 = water
-        const WATER_BLOCK_ID = 74;
+        // Support multiple water block IDs from different worlds:
+        // Main world: 74, 77, 78, 150, 50, 73
+        // Cave world: 10
+        const WATER_BLOCK_IDS = [10, 50, 73, 74, 77, 78, 150];
         
         // Check multiple coordinate combinations (floor and round for both X and Z)
         const checkCoords = [
@@ -288,7 +290,7 @@ export default class BoatEntityController extends BaseEntityController {
         for (const coord of checkCoords) {
             for (let y = startY + 3; y >= startY - 1; y--) {
                 const blockType = entity.world.chunkLattice.getBlockId({ x: coord.x, y, z: coord.z });
-                if (blockType === WATER_BLOCK_ID) {
+                if (WATER_BLOCK_IDS.includes(blockType ?? 0)) {
                     // Found water, return this Y level as the surface
                     console.log(`[BoatEntityController] Found water surface at Y=${y} (position ${coord.x}, ${coord.z}, near boat level)`);
                     return y;
@@ -300,7 +302,7 @@ export default class BoatEntityController extends BaseEntityController {
         for (const coord of checkCoords) {
             for (let y = startY - 2; y >= Math.max(0, startY - 20); y--) {
                 const blockType = entity.world.chunkLattice.getBlockId({ x: coord.x, y, z: coord.z });
-                if (blockType === WATER_BLOCK_ID) {
+                if (WATER_BLOCK_IDS.includes(blockType ?? 0)) {
                     console.log(`[BoatEntityController] Found water surface at Y=${y} (position ${coord.x}, ${coord.z}, extended search)`);
                     return y;
                 }

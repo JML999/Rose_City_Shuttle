@@ -169,16 +169,20 @@ export class InventoryManager {
         // Restore animations if fish was equipped
         const original = this.originalAnimations.get(player.id);
         if (original) {
-            const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
-            if (playerEntity) {
-                const controller = playerEntity.controller as DefaultPlayerEntityController;
-                controller.idleLoopedAnimations = original.idleLoopedAnimations;
-                controller.walkLoopedAnimations = original.walkLoopedAnimations;
-                controller.runLoopedAnimations = original.runLoopedAnimations;
-                
-                // Restore jump animations if they exist
-                if (original.jumpLoopedAnimations !== undefined && (controller as any).jumpLoopedAnimations !== undefined) {
-                    (controller as any).jumpLoopedAnimations = original.jumpLoopedAnimations;
+            // CRITICAL: Use player's current world, not InventoryManager's world
+            const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+            if (playerEntities && playerEntities.length > 0) {
+                const playerEntity = playerEntities[0] as GamePlayerEntity;
+                if (playerEntity) {
+                    const controller = playerEntity.controller as DefaultPlayerEntityController;
+                    controller.idleLoopedAnimations = original.idleLoopedAnimations;
+                    controller.walkLoopedAnimations = original.walkLoopedAnimations;
+                    controller.runLoopedAnimations = original.runLoopedAnimations;
+                    
+                    // Restore jump animations if they exist
+                    if (original.jumpLoopedAnimations !== undefined && (controller as any).jumpLoopedAnimations !== undefined) {
+                        (controller as any).jumpLoopedAnimations = original.jumpLoopedAnimations;
+                    }
                 }
             }
             this.originalAnimations.delete(player.id);
@@ -213,9 +217,11 @@ export class InventoryManager {
 
         const item = inventory.items.find(i => i.id === itemId);
         if (!item) {
-            console.error(`[EQUI_ITEM] Item ${itemId} not found in inventory for player ${player.username}`);
+            console.error(`[EQUIP_ITEM] Item ${itemId} not found in inventory for player ${player.username}`);
             return false;
         }
+        
+        console.log(`[EQUIP_ITEM] Equipping ${item.type} ${itemId} for player ${player.username} in world ${player.world?.id || 'unknown'}`);
 
 
         // If clicking an already equipped fish, unequip it
@@ -252,7 +258,10 @@ export class InventoryManager {
                 this.unequipItem(player, 'fish');
             }
             
-            this.equipRod(player, item); // NOT awaited - like the old version
+            // Equip rod (async, but we don't await it)
+            this.equipRod(player, item).catch(error => {
+                console.error(`[EQUIP_ITEM] Error equipping rod ${itemId} for player ${player.username}:`, error);
+            });
         } else if (item.type === 'fish') {
             // Hide rod entity when equipping fish (rod and fish both use hand-right-anchor)
             // But keep rod equipped in inventory so it shows in hotbar
@@ -324,11 +333,19 @@ export class InventoryManager {
             await this.safeCleanupRodEntity(player);
 
             
+            // CRITICAL: Get player entity from the player's current world, not InventoryManager's world
+            // When switching regions, the player is in a different world than InventoryManager.world
+            const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+            if (!playerEntities || playerEntities.length === 0) {
+                console.error(`[ROD_EQUIP] No player entity found for ${player.username} in world ${player.world?.id || 'unknown'}`);
+                throw new Error('Player entity not found');
+            }
+            
             const rodEntity = new Entity({
                 name: 'fishingRod',
                 tag: 'fishingRod',
                 modelUri: `models/items/${item.modelId}.gltf`,
-                parent: this.world.entityManager.getPlayerEntitiesByPlayer(player)[0],
+                parent: playerEntities[0],
                 parentNodeName: 'hand-right-anchor',
                 modelScale: item.metadata.rodStats?.scale ?? 1,
             });
@@ -355,7 +372,14 @@ export class InventoryManager {
                 position = { x: 0, y: -0.0, z: 0.15 }; // Moved up from -0.2 to -0.1
             }
 
-            await rodEntity.spawn(this.world, position, rotation);
+            // CRITICAL: Spawn rod in the player's current world, not InventoryManager's world
+            const playerWorld = player.world;
+            if (!playerWorld) {
+                console.error(`[ROD_EQUIP] Player ${player.username} has no world`);
+                throw new Error('Player has no world');
+            }
+            
+            await rodEntity.spawn(playerWorld, position, rotation);
             
             // Set a timeout to clear the operation lock
             const timeout = setTimeout(() => {
@@ -378,9 +402,12 @@ export class InventoryManager {
         try {
             const existingRod = this.currentRodEntity.get(player.id);
             if (existingRod) {
-                if (existingRod.id && this.world.entityManager.getEntity(existingRod.id)) {
-                await existingRod.despawn();
+                // CRITICAL: Check if rod exists in player's current world, not InventoryManager's world
+                const playerWorld = player.world;
+                if (existingRod.id && playerWorld?.entityManager?.getEntity(existingRod.id)) {
+                    await existingRod.despawn();
                 } else {
+                    // Rod entity doesn't exist in player's world, just clear the reference
                 }
             } 
             this.currentRodEntity.delete(player.id);
@@ -420,7 +447,12 @@ export class InventoryManager {
     }
 
     displayFish(player: Player, item: InventoryItem): Entity {
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        // CRITICAL: Use player's current world, not InventoryManager's world
+        const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+        if (!playerEntities || playerEntities.length === 0) {
+            throw new Error(`[InventoryManager] No player entity found for ${player.id} in world ${player.world?.id || 'unknown'}`);
+        }
+        const playerEntity = playerEntities[0] as GamePlayerEntity;
         const controller = playerEntity.controller as DefaultPlayerEntityController;
         
         // Store original animations if not already stored (in case of re-equipping)
@@ -485,9 +517,9 @@ export class InventoryManager {
             });
         }
         
-        // Calculate display scale using preliminary weight (for visual consistency) or official weight if weighed
+        // Calculate display scale using weight
         const fishStats = item.metadata.fishStats;
-        const displayWeight = fishStats.hasBeenWeighed ? fishStats.weight : (fishStats.preliminaryWeight || fishStats.weight);
+        const displayWeight = fishStats.weight || 0;
         const weightRatio = (displayWeight - fishData.minWeight) / (fishData.maxWeight - fishData.minWeight);
         const scaleMultiplier = fishData.modelData.baseScale + 
             (weightRatio * (fishData.modelData.maxScale - fishData.modelData.baseScale));
@@ -569,16 +601,22 @@ export class InventoryManager {
                 // Restore original animations when fish is unequipped
                 const original = this.originalAnimations.get(player.id);
                 if (original) {
-                    const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
-                    const controller = playerEntity.controller as DefaultPlayerEntityController;
-                    
-                    controller.idleLoopedAnimations = original.idleLoopedAnimations;
-                    controller.walkLoopedAnimations = original.walkLoopedAnimations;
-                    controller.runLoopedAnimations = original.runLoopedAnimations;
-                    
-                    // Restore jump animations if they exist
-                    if (original.jumpLoopedAnimations !== undefined && (controller as any).jumpLoopedAnimations !== undefined) {
-                        (controller as any).jumpLoopedAnimations = original.jumpLoopedAnimations;
+                    // CRITICAL: Use player's current world, not InventoryManager's world
+                    const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+                    if (playerEntities && playerEntities.length > 0) {
+                        const playerEntity = playerEntities[0] as GamePlayerEntity;
+                        if (playerEntity) {
+                            const controller = playerEntity.controller as DefaultPlayerEntityController;
+                            
+                            controller.idleLoopedAnimations = original.idleLoopedAnimations;
+                            controller.walkLoopedAnimations = original.walkLoopedAnimations;
+                            controller.runLoopedAnimations = original.runLoopedAnimations;
+                            
+                            // Restore jump animations if they exist
+                            if (original.jumpLoopedAnimations !== undefined && (controller as any).jumpLoopedAnimations !== undefined) {
+                                (controller as any).jumpLoopedAnimations = original.jumpLoopedAnimations;
+                            }
+                        }
                     }
                     
                     // Clean up stored animations

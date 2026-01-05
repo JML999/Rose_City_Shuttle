@@ -1,4 +1,5 @@
-import { Entity, Vector3, Quaternion, World, RigidBodyType, SimpleEntityController, Player } from 'hytopia'; 
+import { Entity, Vector3, Quaternion, World, RigidBodyType, SimpleEntityController, Player } from 'hytopia';
+import PortalEntity from '../entities/PortalEntity'; 
 // Adjust path as needed - assuming it's at the root of src/data/
 import innLayout from '../data/layouts/inn.json'; 
 import centralSquareLayout from '../data/layouts/central_square.json';
@@ -56,7 +57,7 @@ import { PressurePlateBlockEntity } from './PressurePlateBlockEntity';
 // Optional: Define interfaces for type safety (good practice)
 interface Coordinate { x: number; y: number; z: number; }
 interface LayoutEntityData {
-    type: 'furniture' | 'decor' | 'npc' | 'merchant_spot' | 'entity' | 'smart_block'; // Add other types as needed
+    type: 'furniture' | 'decor' | 'npc' | 'merchant_spot' | 'entity' | 'smart_block' | 'portal'; // Add portal type
     id: string;
     modelUri?: string; // Make optional as it might come from definition
     relativePosition: Coordinate;
@@ -64,7 +65,12 @@ interface LayoutEntityData {
     rotationY?: number; // Make optional, default to 0
     scale?: number; // Optional
     modelScale?: number; // Optional, for entities with modelScale directly specified
-    facing?: Coordinate; 
+    facing?: Coordinate;
+    // Portal-specific fields
+    destinationRegionId?: string;
+    destinationRegionPosition?: Coordinate;
+    destinationRegionFacingAngle?: number;
+    delayS?: number;
 }
 interface NpcDefinitionData {
     id: string;
@@ -170,6 +176,9 @@ export class WorldPopulator {
                     case 'entity':
                     case 'smart_block':
                         this.spawnSmartBlock(entityData, finalPos, finalRot, facing);
+                        break;
+                    case 'portal':
+                        this.spawnPortal(entityData, finalPos, finalRot);
                         break;
                     default:
                         console.warn(`    Unknown entity type in layout: ${entityData.type} for entity ${entityData.id}`);
@@ -436,5 +445,24 @@ export class WorldPopulator {
             const facingVector = new Vector3(facing.x, facing.y, facing.z);
             blockEntity.faceTowards(facingVector);
         }
+    }
+
+    private spawnPortal(data: LayoutEntityData, position: Vector3, rotation: Quaternion): void {
+        if (!data.destinationRegionId || !data.destinationRegionPosition) {
+            console.error(`[WorldPopulator] Portal ${data.id} missing required fields (destinationRegionId or destinationRegionPosition)`);
+            return;
+        }
+
+        const portal = new PortalEntity({
+            modelUri: data.modelUri ?? 'models/environment/Portal/dragon-portal.gltf',
+            modelScale: data.modelScale ?? 0.7,
+            destinationRegionId: data.destinationRegionId,
+            destinationRegionPosition: data.destinationRegionPosition,
+            destinationRegionFacingAngle: data.destinationRegionFacingAngle ?? 0,
+            delayS: data.delayS ?? 0,
+        });
+
+        portal.spawn(this.world, position, rotation);
+        console.log(`[WorldPopulator] Spawned portal ${data.id} at (${position.x.toFixed(2)}, ${position.y.toFixed(2)}, ${position.z.toFixed(2)})`);
     }
 }

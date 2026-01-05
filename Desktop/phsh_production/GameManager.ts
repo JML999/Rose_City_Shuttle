@@ -10,7 +10,16 @@ import { SeaStoryManager } from './SeaStoryManager';
 import { QuestManager } from './QuestManager';
 import { MessageManager } from './MessageManager';
 import GameClock from './GameClock';
-import { Player } from 'hytopia';
+import { Player, World } from 'hytopia';
+import GameRegion from './GameRegion';
+import { LevelingSystem } from './LevelingSystem';
+import { InventoryManager } from './Inventory/InventoryManager';
+import { FishingMiniGame } from './Fishing/FishingMiniGame';
+import { BaitBlockManager } from './Bait/BaitBlockManager';
+import { CurrencyManager } from './CurrencyManager';
+import { CraftingManager } from './Crafting/CraftingManager';
+import PortalEntity from './entities/PortalEntity';
+import portal1Map from './assets/portal_1.json';
 
 
 interface CloudConfig {
@@ -39,6 +48,10 @@ export default class GameManager {
     public messageManager?: MessageManager;
     private clouds: Entity[] = [];
     private npcs: Entity[] = [];
+    
+    // Region management
+    private _regions: Map<string, GameRegion> = new Map();
+    private _startRegion: GameRegion | undefined;
     
     // Performance tracking
     private lastPerfLog = Date.now();
@@ -72,6 +85,129 @@ export default class GameManager {
 
     public getWorld(): World | undefined {
         return this.world;
+    }
+
+    // --- Region Management ---
+    
+    /**
+     * Get a region by ID
+     */
+    public getRegion(id: string): GameRegion | undefined {
+        return this._regions.get(id);
+    }
+
+    /**
+     * Get the start region (main world)
+     */
+    public get startRegion(): GameRegion | undefined {
+        return this._startRegion;
+    }
+
+    /**
+     * Load all regions. This will be called during game initialization.
+     * Creates main-world region (wrapping defaultWorld) and ancient-cave-1 region.
+     */
+    public loadRegions(
+        defaultWorld: World,
+        stateManager: PlayerStateManager,
+        levelingSystem: LevelingSystem,
+        inventoryManager: InventoryManager,
+        fishingMiniGame: FishingMiniGame,
+        npcManager: NpcManager,
+        baitBlockManager: BaitBlockManager,
+        currencyManager: CurrencyManager,
+        craftingManager: CraftingManager
+    ): void {
+        // Main world region (Big Island) - wraps the default world
+        const mainRegion = new GameRegion({
+            id: 'big-island',
+            name: 'Big Island',
+            existingWorld: defaultWorld, // Use the existing default world
+            spawnPoint: { x: -109, y: 14, z: 35 }, // Default spawn point
+            spawnFacingAngle: 0,
+            skyboxUri: 'skyboxes/partly-cloudy',
+        });
+        
+        // Set dependencies for main region
+        mainRegion.setDependencies(
+            stateManager,
+            levelingSystem,
+            inventoryManager,
+            fishingMiniGame,
+            npcManager,
+            baitBlockManager,
+            currencyManager,
+            craftingManager,
+            defaultWorld
+        );
+        
+        this._regions.set(mainRegion.id, mainRegion);
+        this._startRegion = mainRegion;
+        
+        // Ancient Cave 1 region - new world for cave exploration
+        const ancientCave1 = new GameRegion({
+            id: 'ancient-cave-1',
+            name: 'Ancient Cave',
+            spawnPoint: { x: -31, y: 21, z: -67 }, // Correct spawn point in cave
+            spawnFacingAngle: 180, // Face away from entrance
+            skyboxUri: 'skyboxes/night', // Dark cave atmosphere
+            fogColor: { r: 20, g: 20, b: 30 }, // Dark blue fog
+            ambientAudioUri: 'audio/sfx/ambient/cave/cave.mp3', // Cave ambient sound
+            ambientAudioVolume: 0.1,
+            map: portal1Map, // Pass map like Frontiers does - WorldManager loads it automatically
+        });
+        
+        // Set dependencies for cave region
+        ancientCave1.setDependencies(
+            stateManager,
+            levelingSystem,
+            inventoryManager,
+            fishingMiniGame,
+            npcManager,
+            baitBlockManager,
+            currencyManager,
+            craftingManager,
+            defaultWorld // Use main world for managers
+        );
+        
+        this._regions.set(ancientCave1.id, ancientCave1);
+        
+        console.log(`[GameManager] Loaded ${this._regions.size} regions: ${Array.from(this._regions.keys()).join(', ')}`);
+        
+        // Setup portals after regions are loaded
+        this.setupPortals();
+    }
+
+    /**
+     * Setup portals for world switching
+     * Note: Shadow Isle portal is now handled by WorldPopulator from layout data
+     * This only sets up the return portal in the cave
+     */
+    private setupPortals(): void {
+        if (!this.world) {
+            console.error('[GameManager] Cannot setup portals: world not initialized');
+            return;
+        }
+
+        const caveRegion = this.getRegion('ancient-cave-1');
+
+        if (!caveRegion) {
+            console.error('[GameManager] Cannot setup return portal: cave region not found');
+            return;
+        }
+
+        // Return portal in cave - teleports back to Shadow Isle portal location
+        // Shadow Isle portal is at (299.92, 16.71, 181.5) - use that exact position
+        const returnPortal = new PortalEntity({
+            modelUri: 'models/environment/Portal/dragon-portal.gltf',
+            destinationRegionId: 'big-island',
+            destinationRegionPosition: { x: 299.92, y: 16.71, z: 181.5 }, // Back to Shadow Isle portal location
+            destinationRegionFacingAngle: 0, // Face portal
+            delayS: 0, // Instant teleport
+        });
+        // Spawn return portal at the cave spawn point
+        returnPortal.spawn(caveRegion.world, { x: -31, y: 21, z: -67 });
+        console.log('[GameManager] Return portal spawned in ancient cave at (-31, 21, -67)');
     }
 
     public async setupGame(world: World, playerStateManager: PlayerStateManager, npcManager: NpcManager, seaStoryManager: SeaStoryManager) {

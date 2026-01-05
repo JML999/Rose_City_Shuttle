@@ -92,10 +92,24 @@ export class FishingMiniGame {
             this.world, 
             this.inventoryManager, 
             this.stateManager, 
-            this.messageManager,
-            this,
+            this.messageManager, 
+            this, 
             this.fishSpawnManager
         );
+    }
+    
+    /**
+     * Helper method to get player entity from the player's current world.
+     * CRITICAL: When switching regions, players are in different worlds, so we must use player.world
+     * instead of this.world (which is the world FishingMiniGame was initialized with).
+     */
+    private getPlayerEntity(player: Player): GamePlayerEntity | undefined {
+        const playerEntities = player.world?.entityManager?.getPlayerEntitiesByPlayer(player);
+        if (!playerEntities || playerEntities.length === 0) {
+            console.error(`[FishingMiniGame] No player entity found for ${player.id} in world ${player.world?.id || 'unknown'}`);
+            return undefined;
+        }
+        return playerEntities[0] as GamePlayerEntity;
     }
 
     private updateCastingUI(player: Player, power: number | null) {
@@ -113,8 +127,12 @@ export class FishingMiniGame {
             this.inventoryManager.unequipItem(player, 'fish');
         }
         
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0];    
-        let gamePlayerEntity = playerEntity as GamePlayerEntity;
+        // CRITICAL: Get player entity from player's current world (not FishingMiniGame's world)
+        const gamePlayerEntity = this.getPlayerEntity(player);
+        if (!gamePlayerEntity) {
+            return;
+        }
+        const playerEntity = gamePlayerEntity;
         
         // Allow fishing from boats, but not when swimming/standing in water
         if (gamePlayerEntity.isInOrOnWater(playerEntity) && !gamePlayerEntity.isBoating) { 
@@ -196,8 +214,8 @@ export class FishingMiniGame {
 
         // Log the cast power from the state
 
-        // Get PlayerEntity for this player
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        // Get PlayerEntity for this player (from player's current world)
+        const playerEntity = this.getPlayerEntity(player);
         if (!playerEntity) return;
         const rod = playerEntity.getEquippedRod(player);
         if (!rod) return;
@@ -265,8 +283,8 @@ export class FishingMiniGame {
         const maxDistance = rod.metadata?.rodStats?.maxDistance ?? 10;
         const distance = (state.fishing.castPower / 100) * maxDistance;
 
-        // Check if landing position is in water
-        const result = this.findFishingSpot(castPosition, { x: forwardX, z: forwardZ }, distance);
+        // Check if landing position is in water (use player's current world)
+        const result = this.findFishingSpot(player, castPosition, { x: forwardX, z: forwardZ }, distance);
         if (result.found && result.position) {
             // Check if cast landed in a hotspot and show notification with delay
             const hotspotCheck = this.fishSpawnManager.checkHotspotAtPosition(new Vector3(
@@ -328,7 +346,7 @@ export class FishingMiniGame {
         }
     }
 
-    private findFishingSpot(startPos: { x: number, y: number, z: number }, 
+    private findFishingSpot(player: Player, startPos: { x: number, y: number, z: number }, 
         forwardDir: { x: number, z: number }, 
         distance: number): { found: boolean, position?: { x: number, y: number, z: number } } {
         const landingPos = {
@@ -339,6 +357,13 @@ export class FishingMiniGame {
 
         console.log("Checking cast at landing spot:", landingPos);
 
+        // CRITICAL: Use player's current world, not FishingMiniGame's world
+        const playerWorld = player.world;
+        if (!playerWorld) {
+            console.error(`[FishingMiniGame] Player ${player.id} has no world`);
+            return { found: false };
+        }
+
         // Use world.chunkLattice instead of static mapData to support new map areas
         for (let y = landingPos.y; y > 0; y--) {
             const checkPos = {
@@ -347,8 +372,8 @@ export class FishingMiniGame {
                 z: Math.floor(landingPos.z)
             };
 
-            // Use world.chunkLattice.getBlockId() instead of mapData
-            const blockTypeId = this.world.chunkLattice.getBlockId({ 
+            // Use player's world chunkLattice.getBlockId() instead of this.world
+            const blockTypeId = playerWorld.chunkLattice.getBlockId({ 
                 x: checkPos.x, 
                 y: checkPos.y, 
                 z: checkPos.z 
@@ -357,8 +382,11 @@ export class FishingMiniGame {
             // Skip if air block (undefined or 0)
             if (!blockTypeId || blockTypeId === 0) continue;
 
-            // Found water - use correct water block IDs: 73 (water-flow) and 74 (water-still)
-            if (blockTypeId === 73 || blockTypeId === 74) {
+            // Found water - support multiple water block IDs from different worlds:
+            // Main world: 73 (water-flow), 74 (water-still), 77, 78, 150
+            // Cave world: 10
+            const waterBlockIds = [10, 50, 73, 74, 77, 78, 150];
+            if (waterBlockIds.includes(blockTypeId)) {
                 console.log("Found fishable water at:", checkPos);
                 return { found: true, position: checkPos };
             }
@@ -391,7 +419,8 @@ export class FishingMiniGame {
         state.fishing.fishVelocityY = 0;  // Start with no velocity
 
         // Get rod catchSpeed with enchantment bonuses
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         const rod = playerEntity.getEquippedRod(player);
         const modifiedStats = EnchantmentHelper.getEnchantmentModifiedStats(rod);
         let rodCatchSpeed = modifiedStats.catchSpeed;
@@ -467,7 +496,8 @@ export class FishingMiniGame {
 
         // Update fishing line if player is fishing
         if (state.fishing.isPlayerFishing) {
-            const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+            const playerEntity = this.getPlayerEntity(player);
+            if (!playerEntity) return;
             if (playerEntity && state.fishing.castPosition) {
                 const rodTipPosition = this.getRodTipPosition(playerEntity);
                 
@@ -500,7 +530,8 @@ export class FishingMiniGame {
         }
     
         // Get equipped rod for Swift Current enchantment check
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         const equippedRod = playerEntity.getEquippedRod(player);
         const hasSwiftCurrent = EnchantmentHelper.hasEnchantment(equippedRod, 'swift_current');
         
@@ -540,7 +571,8 @@ export class FishingMiniGame {
         });
         */
 
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0];
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         // FIX: use correct spelling "forward" not "foward"
         playerEntity.stopModelAnimations(['cast_forward_lower']);
         playerEntity.stopModelAnimations(['cast_forward_upper']);
@@ -695,7 +727,8 @@ export class FishingMiniGame {
         }
         
         // Reset animations
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        // CRITICAL: Use player's current world, not FishingMiniGame's world
+        const playerEntity = this.getPlayerEntity(player);
         if (playerEntity) {
             // FIX: use correct spelling "forward" not "foward"
             const animationsToStop = ['cast_back_lower', 'cast_back_upper', 'cast_forward_lower', 'cast_forward_upper', 'reeling_lower', 'carry-upper'];
@@ -867,7 +900,8 @@ class ReelingGame {
     startReeling(player: Player, fish: CaughtFish) {
         const state = this.stateManager.getState(player);
         if (!state) return;
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         let rodCheck = playerEntity.getEquippedRod(player);
         if (!rodCheck) {
             console.warn("[ReelingGame] No rod equipped, cannot start reeling.");
@@ -1063,7 +1097,8 @@ class ReelingGame {
         
         this.time += 1;
         // Get equipped rod for fatigue enchantment
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         const equippedRod = playerEntity.getEquippedRod(player);
         
         // Apply fatigue to current velocity (preserving direction), but use base magnitude to prevent compounding
@@ -1159,7 +1194,8 @@ class ReelingGame {
 
         // Get enchantment-modified stats and fatigue data for visual feedback
         // Reuse playerEntity and equippedRod from earlier in the function
-        const currentPlayerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const currentPlayerEntity = this.getPlayerEntity(player);
+        if (!currentPlayerEntity) return;
         const currentEquippedRod = currentPlayerEntity.getEquippedRod(player);
         const currentModifiedStats = EnchantmentHelper.getEnchantmentModifiedStats(currentEquippedRod);
         
@@ -1201,7 +1237,7 @@ class ReelingGame {
             return;
         }
         
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+        const playerEntity = this.getPlayerEntity(player);
         if (!playerEntity) {
             return;
         }
@@ -1272,7 +1308,8 @@ class ReelingGame {
             const staticId = fish.id.replace(/_\d+_\d+$/, '');
             
             // Create inventory item directly to preserve metadata (for quest chests with predefined contents)
-            const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+            const playerEntity = this.getPlayerEntity(player);
+            if (!playerEntity) return;
             let inventoryItem = ItemFactory.createInventoryItemFromLootId(staticId, 1);
             
             // Preserve metadata from the caught fish (important for quest chests with predefined contents)
@@ -1460,7 +1497,8 @@ class ReelingGame {
                 if (EnchantmentHelper.shouldDoubleCatch(equippedRod)) {
                     console.log(`[FishingMiniGame] Twin Hook triggered! Attempting to catch second fish...`);
                     // Try to catch a second fish at the same location (use current time)
-                    const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+                    const playerEntity = this.getPlayerEntity(player);
+                    if (!playerEntity) return;
                     const fishingPosition = new Vector3(playerEntity.position.x, playerEntity.position.y, playerEntity.position.z);
                     const currentTime = Date.now();
                     const secondFish = this.fishSpawnManager.getFishAtLocation(fishingPosition, currentTime, player);
@@ -1495,7 +1533,8 @@ class ReelingGame {
                 }
                 
                 // Track fishing location for daily quests
-                const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0] as GamePlayerEntity;
+                const playerEntity = this.getPlayerEntity(player);
+                if (!playerEntity) return;
                 if (playerEntity) {
                     const fishingPosition = new Vector3(playerEntity.position.x, playerEntity.position.y, playerEntity.position.z);
                     // Use getCurrentFishingZone helper function from FishLootManager
@@ -1615,7 +1654,8 @@ class ReelingGame {
     */
     
     private displayFish(player: Player, fish: CaughtFish) {
-        const playerEntity = this.world.entityManager.getPlayerEntitiesByPlayer(player)[0];
+        const playerEntity = this.getPlayerEntity(player);
+        if (!playerEntity) return;
         
         // Remove existing display fish
         const existingDisplays = this.world.entityManager.getAllEntities().filter(

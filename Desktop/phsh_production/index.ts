@@ -43,6 +43,7 @@ import {
   PlayerEvent,
   ChatEvent,
   Quaternion,
+  PlayerManager,
 } from 'hytopia';
 
 import { PlayerStateManager } from './PlayerStateManager';
@@ -123,9 +124,51 @@ startServer(world => {
 
     GameManager.instance.startRecurringTimers(baitBlockManager);
 
+    // Load regions (creates main-world and ancient-cave-1)
+    GameManager.instance.loadRegions(
+        world,
+        stateManager,
+        levelingSystem,
+        inventoryManager,
+        fishingMiniGame,
+        npcManager,
+        baitBlockManager,
+        currencyManager,
+        craftingManager
+    );
+
+    // Set up world selection handler (determines which world player joins on connect)
+    PlayerManager.instance.worldSelectionHandler = async (player: Player): Promise<World | undefined> => {
+        // Initialize player state (loads persisted data including currentRegionId)
+        stateManager.initializePlayer(player);
+        
+        // Get saved region ID
+        const savedRegionId = stateManager.getCurrentRegionId(player);
+        
+        if (savedRegionId) {
+            const region = GameManager.instance.getRegion(savedRegionId);
+            if (region) {
+                console.log(`[WorldSelection] Player ${player.id} joining saved region: ${savedRegionId}`);
+                return region.world;
+            } else {
+                console.warn(`[WorldSelection] Saved region ${savedRegionId} not found for player ${player.id}, using start region`);
+            }
+        }
+        
+        // Fallback to start region (big-island)
+        const startRegion = GameManager.instance.startRegion;
+        if (startRegion) {
+            console.log(`[WorldSelection] Player ${player.id} joining start region: ${startRegion.id}`);
+            return startRegion.world;
+        }
+        
+        // Final fallback to default world
+        console.log(`[WorldSelection] Player ${player.id} joining default world`);
+        return world;
+    };
 
     /**
-     * Load our map.
+     * Load our map into the main world.
      * You can build your own map using https://build.hytopia.com
      * After building, hit export and drop the .json file in
      * the assets folder as map.json.
@@ -135,6 +178,10 @@ startServer(world => {
     
 
     /**
+     * NOTE: Player join/leave is now handled by GameRegion handlers.
+     * The handlers below are kept for reference but are disabled since
+     * regions handle player spawning and cleanup.
+     * 
      * Handle player joining the game. The onPlayerJoin
      * function is called when a new player connects to
      * the game. From here, we create a basic player
@@ -144,6 +191,9 @@ startServer(world => {
      * 
      */
     
+    // DISABLED: Regions now handle player join/leave
+    // Player spawning is handled by GameRegion.onPlayerJoin()
+    /*
     world.on(PlayerEvent.JOINED_WORLD, ({ player }) => {
       baitBlockManager.cleanupOldBlocks();
 
@@ -220,8 +270,11 @@ startServer(world => {
       // }, 10_000);
       // __breakTestIntervals.set(player.id, interval);
     });
+    */
 
     /**
+     * DISABLED: Regions now handle player join/leave
+     * Player cleanup is handled by GameRegion.onPlayerLeave()
      * Handle player leaving the game. The onPlayerLeave
      * function is called when a player leaves the game.
      * Because HYTOPIA is not opinionated on join and
@@ -232,6 +285,7 @@ startServer(world => {
      * the player who left by using our world's EntityManager
      * instance.
      */
+    /*
     world.on(PlayerEvent.LEFT_WORLD, ({ player }) => {
         console.log("player left", player.id);
         // BreakTest: cleanup interval for this player
@@ -252,6 +306,7 @@ startServer(world => {
         stateManager.cleanup(player);
         world.entityManager.getPlayerEntitiesByPlayer(player).forEach(entity => entity.despawn());
     });
+    */
 
 
     world.chatManager.on(ChatEvent.BROADCAST_MESSAGE, ({ player, message }) => {
